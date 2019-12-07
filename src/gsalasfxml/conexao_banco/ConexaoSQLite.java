@@ -2,6 +2,7 @@ package gsalasfxml.conexao_banco;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -20,8 +21,7 @@ public class ConexaoSQLite {
 
         try {
 
-            String url = "jdbc:sqlite:banco_de_dados/banco_sqlite2.db";
-
+            String url = "jdbc:sqlite:banco_de_dados/GerensiaSalasqlite2.db";
             this.conexao = DriverManager.getConnection(url);
 
         } catch (SQLException e) {
@@ -29,8 +29,7 @@ public class ConexaoSQLite {
             return false;
         }
 
-        System.out.println("conectou!!!");
-        
+        //System.out.println("conectou!!!");
         return true;
     }
 
@@ -42,12 +41,27 @@ public class ConexaoSQLite {
             }
 
         } catch (SQLException e) {
-
             System.err.println(e.getMessage());
             return false;
         }
-        System.out.println("desconectou!!!");
+        //System.out.println("desconectou!!!");
         return true;
-
+    }
+    
+    /**
+     * Criar os Statements para nossas sqls serem execultadas
+     * @return 
+     */
+    
+    public Statement criarStatement(){
+    try{
+        return this.conexao.createStatement();
+       }catch(SQLException e){
+        return null;
+       }
+    }
+    
+    public Connection getConexao(){
+        return conexao;
     }
 }
