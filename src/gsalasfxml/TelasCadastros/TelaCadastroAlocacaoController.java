@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -25,12 +26,14 @@ public class TelaCadastroAlocacaoController implements Initializable {
     @FXML private Label labelHorario;
     @FXML private Label labelDuracao;
     @FXML private Label labelMatU;
+    @FXML private Label labelAndar;
     @FXML private TextField txtDescr;
     @FXML private TextField txtNumS;
     @FXML private TextField txtData;
     @FXML private TextField txtHorario;
     @FXML private TextField txtDuracao;
     @FXML private TextField txtMatU;
+    @FXML private ToggleGroup grupoAndar;
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
