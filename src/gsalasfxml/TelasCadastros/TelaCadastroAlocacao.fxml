@@ -20,14 +20,13 @@
             <TextField fx:id="txtMatU" />
             <Label fx:id="labelNumS" text="Número da Sala:" />
             <TextField fx:id="txtNumS" />
-            <Label fx:id="labelAndar" text="Andar:" />
-            <RadioButton mnemonicParsing="false" text="1º Andar">
+            <Label fx:id="labelAndar" text="Asa:" />
+            <RadioButton mnemonicParsing="false" text="Norte">
                <toggleGroup>
-                  <ToggleGroup fx:id="grupoAndar" />
+                  <ToggleGroup fx:id="grupoAsa" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="2º Andar" toggleGroup="$grupoAndar" />
-            <RadioButton mnemonicParsing="false" text="3º Andar" toggleGroup="$grupoAndar" />
+            <RadioButton mnemonicParsing="false" text="Sul" toggleGroup="$grupoAsa" />
             <Label fx:id="labelData" text="Data (dd/mm/ano):" />
             <TextField fx:id="txtData" />
             <Label fx:id="labelHorario" text="Horário (hh:mm):" />

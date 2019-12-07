@@ -33,7 +33,7 @@ public class TelaCadastroAlocacaoController implements Initializable {
     @FXML private TextField txtHorario;
     @FXML private TextField txtDuracao;
     @FXML private TextField txtMatU;
-    @FXML private ToggleGroup grupoAndar;
+    @FXML private ToggleGroup grupoAsa;
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
