@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gsalasfxml.TelasCadastros.TelaCadastroAlocacaoController">
+   <children>
+      <Button fx:id="btnSalvar" layoutX="254.0" layoutY="361.0" mnemonicParsing="false" text="Salvar" />
+      <Button fx:id="btnLimpar" layoutX="177.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoLimpar" text="Limpar" />
+      <VBox layoutX="14.0" layoutY="14.0" prefHeight="278.0" prefWidth="205.0">
+         <children>
+            <Label fx:id="labelDescr" text="Descrição:" />
+            <TextField fx:id="txtDescr" />
+            <Label fx:id="labelMatU" text="Matrícula Usuário:" />
+            <TextField fx:id="txtMatU" />
+            <Label fx:id="labelNumS" text="Número da Sala:" />
+            <TextField fx:id="txtNumS" />
+            <Label fx:id="labelData" text="Data (dd/mm/ano):" />
+            <TextField fx:id="txtData" />
+            <Label fx:id="labelHorario" text="Horário (hh:mm):" />
+            <TextField fx:id="txtHorario" prefHeight="25.0" prefWidth="216.0" />
+            <Label fx:id="labelDuracao" text="Tempo de Duração (em dias):" />
+            <TextField fx:id="txtDuracao" />
+         </children>
+      </VBox>
+      <Button fx:id="btnExcluir" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Excluir" />
+      <Button fx:id="btnBuscar" layoutX="91.0" layoutY="361.0" mnemonicParsing="false" text="Buscar" />
+   </children>
+</Pane>
