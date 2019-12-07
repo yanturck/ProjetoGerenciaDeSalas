@@ -2,25 +2,15 @@ package gsalasfxml.PojoDao;
 
 public class Alocacao {
     private String descricao;
-    private int sala;
     private String data;
     private String hora;
-    private String duracao;
+    private String tempo;
 
     public Alocacao(String des, int s, String dat, String h, String dur){
         super();
         this.descricao = des;
-        this.sala = s;
         this.data = dat;
         this.hora = h;
-        this.duracao = dur;
-    }
-    
-    public int getSala() {
-        return sala;
-    }
-    public void setSala(int sala) {
-        this.sala = sala;
     }
 
     public String getDescricao() {
@@ -47,11 +37,11 @@ public class Alocacao {
         this.hora = hora;
     }
 
-    public String getDuracao() {
-        return duracao;
+    public String getTempo() {
+        return tempo;
     }
 
-    public void setDuracao(String duracao) {
-        this.duracao = duracao;
+    public void setTempo(String Tempo) {
+        this.tempo = tempo;
     }
 }
