@@ -20,7 +20,7 @@ public class SalasDAO {
     }
     
     public String adicionar(Sala sala){
-        String sql = "INSERT INTO SALA(idSALA, ANDAR, ASA, TIPOsala) values (?, ?, ?);";
+        String sql = "INSERT INTO SALA(idSALA, ANDAR, ASA, TIPOsala) values (?, ?, ?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, sala.getIdSala());
