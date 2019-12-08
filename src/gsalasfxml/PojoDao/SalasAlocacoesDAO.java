@@ -1,17 +1,19 @@
 package gsalasfxml.PojoDao;
 
-import gsalasfxml.conexao_banco.ConexaoSQLite;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class SalasDAO {
+/**
+ *
+ * @author Yan Rocha
+ */
+public class SalasAlocacoesDAO {
     private Connection connection;
     private String url = "jdbc:sqlite:banco_de_dados/GerensiaSalasqlite.db";
     
-    public SalasDAO(){
+    public SalasAlocacoesDAO(){
         try{
             connection = DriverManager.getConnection(url);
         }catch(SQLException e){
@@ -19,14 +21,12 @@ public class SalasDAO {
         }
     }
     
-    public void adicionar(Sala sala){
-        String sql = "INSERT INTO SALA(idSALA, ANDAR, ASA, TIPOsala) values (?, ?, ?);";
+    public void adicionar(SalasAlocacoes sa){
+        String sql = "INSERT INTO SALA_ALOCACAO(idSALA, idALOCACAO) values (?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, sala.getIdSala());
-            stmt.setString(2, sala.getAndar());
-            stmt.setString(3, sala.getAsa());
-            stmt.setString(4, sala.getTipoSala());
+            stmt.setInt(1, sa.getIdSala());
+            stmt.setInt(2, sa.getIdAlocacao());
             stmt.execute();
             stmt.close();
         }catch(SQLException u){
