@@ -42,6 +42,15 @@ public class CriacaoTB {
                 + "foreign key (idUser) references USUARIO(idUSER)"
                 + ");";
     
+        String sql4 = "CREATE TABLE IF NOT EXISTS SALA_ALOCACAO"
+                + "("
+                + "idSALA int not null,"
+                + "idALOCACAO int not null,"
+                + "primary key(idSALA, idALOCACAO),"
+                + "foreign key(idSALA) references SALA(idSALA),"
+                + "foreign key(idALOCACAO) references ALOCACAO(idALOCACAO)"
+                + ");";
+        
         boolean conectou = false;
         try{
             conectou = this.conexaoSQLite.conectar();
@@ -49,6 +58,7 @@ public class CriacaoTB {
             stmt.execute(sql1);
             stmt.execute(sql2);
             stmt.execute(sql3);
+            stmt.execute(sql4);
         
             System.out.println("Tabelas criadas!!");
         } catch(SQLException e){
