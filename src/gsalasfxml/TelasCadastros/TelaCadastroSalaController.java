@@ -42,6 +42,7 @@ public class TelaCadastroSalaController implements Initializable {
     });
        btnSalvar.setOnMouseClicked((MouseEvent s)->{
        acaoSalvar();
+       acaoLimpar();
     });
     }    
     @FXML public void acaoLimpar(){

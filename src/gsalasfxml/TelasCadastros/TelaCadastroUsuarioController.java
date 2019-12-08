@@ -1,5 +1,7 @@
 package gsalasfxml.TelasCadastros;
 
+import gsalasfxml.PojoDao.Usuario;
+import gsalasfxml.PojoDao.UsuariosDAO;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -30,11 +32,16 @@ public class TelaCadastroUsuarioController implements Initializable {
     @FXML private Label labelTipoU;
     @FXML private Label labelCurso;
     @FXML private Label labelTelefone;
+    @FXML private Label labelAtualizacao;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        btnLimpar.setOnMouseClicked((MouseEvent e)->{
-       acaoLimpar(); 
+           acaoLimpar(); 
+    });
+       btnSalvar.setOnMouseClicked((MouseEvent e)->{
+           acaoSalvar();
+           acaoLimpar();
     });
     }    
      @FXML public void acaoLimpar(){
@@ -44,4 +51,10 @@ public class TelaCadastroUsuarioController implements Initializable {
         txtCurso.setText("");
         txtTelefone.setText("");
     }
+     @FXML public void acaoSalvar(){
+         int idUser = Integer.parseInt(txtId.getText());
+         Usuario user = new Usuario(idUser, txtNome.getText(), txtTipoU.getText(), txtCurso.getText(), txtTelefone.getText());
+         UsuariosDAO dao = new UsuariosDAO();
+         labelAtualizacao.setText(dao.adicionar(user));
+     }
 }
