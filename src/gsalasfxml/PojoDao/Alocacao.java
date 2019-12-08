@@ -11,7 +11,7 @@ public class Alocacao {
     private Time tempo;
     private int idUser;
 
-    public Alocacao(String des, Date dat, Date dur, Time h, Time tmp, int idUser){
+    public Alocacao(String des, Date dat, Time h, Time tmp, Date dur, int idUser){
         super();
         this.descricao = des;
         this.data = dat;
