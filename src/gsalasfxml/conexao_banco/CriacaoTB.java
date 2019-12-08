@@ -35,6 +35,7 @@ public class CriacaoTB {
         String sql3 = "CREATE TABLE IF NOT EXISTS ALOCACAO"
                 + "("
                 + "idALOCACAO int auto_increment primary key,"
+                + "DESCRICAO varchar(50) not null,"
                 + "DATAaloc date not null,"
                 + "HORAaloc time not null,"
                 + "TEMPOaloc date not null,"
