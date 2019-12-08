@@ -17,7 +17,7 @@ public class CriacaoTB {
     public void criarTabelas(){
         String sql1 = "CREATE TABLE IF NOT EXISTS SALA"
                 + "("
-                + "idSALA int not null primary key,"
+                + "idSALA int primary key,"
                 + "ANDAR int not null,"
                 + "ASA varchar(5) not null,"
                 + "TIPOsala varchar(15) not null"
@@ -25,7 +25,7 @@ public class CriacaoTB {
         
         String sql2 = "CREATE TABLE IF NOT EXISTS USUARIO"
                 + "("
-                + "idUSER int not null primary key,"
+                + "idUSER int primary key,"
                 + "NOME varchar(45) not null,"
                 + "TIPOuser varchar(45) not null,"
                 + "CURSO varchar(30),"
@@ -34,7 +34,7 @@ public class CriacaoTB {
         
         String sql3 = "CREATE TABLE IF NOT EXISTS ALOCACAO"
                 + "("
-                + "idALOCACAO int not null auto_increment primary key,"
+                + "idALOCACAO int auto_increment primary key,"
                 + "DESCRICAO varchar(50) not null,"
                 + "DATAaloc date not null,"
                 + "HORAaloc time not null,"
