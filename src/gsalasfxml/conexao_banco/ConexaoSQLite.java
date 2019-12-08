@@ -21,7 +21,7 @@ public class ConexaoSQLite {
 
         try {
 
-            String url = "jdbc:sqlite:banco_de_dados/GerensiaSalasqlite2.db";
+            String url = "jdbc:sqlite:banco_de_dados/GerensiaSalasqlite.db";
             this.conexao = DriverManager.getConnection(url);
 
         } catch (SQLException e) {
@@ -29,7 +29,7 @@ public class ConexaoSQLite {
             return false;
         }
 
-        //System.out.println("conectou!!!");
+        System.out.println("conectou!!!");
         return true;
     }
 
@@ -44,7 +44,7 @@ public class ConexaoSQLite {
             System.err.println(e.getMessage());
             return false;
         }
-        //System.out.println("desconectou!!!");
+        System.out.println("desconectou!!!");
         return true;
     }
     
