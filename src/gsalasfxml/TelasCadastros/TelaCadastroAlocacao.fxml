@@ -10,9 +10,9 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gsalasfxml.TelasCadastros.TelaCadastroAlocacaoController">
    <children>
-      <Button fx:id="btnSalvar" layoutX="254.0" layoutY="361.0" mnemonicParsing="false" text="Salvar" />
+      <Button fx:id="btnSalvar" layoutX="254.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoSalvar" text="Salvar" />
       <Button fx:id="btnLimpar" layoutX="177.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoLimpar" text="Limpar" />
-      <VBox layoutX="14.0" layoutY="14.0" prefHeight="278.0" prefWidth="205.0">
+      <VBox layoutX="14.0" layoutY="14.0" prefHeight="286.0" prefWidth="227.0">
          <children>
             <Label fx:id="labelDescr" text="Descrição:" />
             <TextField fx:id="txtDescr" />
@@ -23,15 +23,8 @@
                   <ToggleGroup fx:id="grupoMaisS" />
                </toggleGroup>
             </RadioButton>
-            <Label fx:id="labelNumS" text="Número da Sala:" />
+            <Label fx:id="labelNumS" text="Número da Sala e Asa (exemplo: 105N):" />
             <TextField fx:id="txtNumS" />
-            <Label fx:id="labelAndar" text="Asa:" />
-            <RadioButton mnemonicParsing="false" text="Norte">
-               <toggleGroup>
-                  <ToggleGroup fx:id="grupoAsa" />
-               </toggleGroup>
-            </RadioButton>
-            <RadioButton mnemonicParsing="false" text="Sul" toggleGroup="$grupoAsa" />
             <Label fx:id="labelData" text="Data (dd/mm/ano):" />
             <TextField fx:id="txtData" />
             <Label fx:id="labelHorario" text="Horário Início-Termino( hh:mm):" />
@@ -47,5 +40,6 @@
       </VBox>
       <Button fx:id="btnExcluir" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Excluir" />
       <Button fx:id="btnBuscar" layoutX="91.0" layoutY="361.0" mnemonicParsing="false" text="Buscar" />
+      <Label fx:id="labelAtualizacao" layoutX="14.0" layoutY="326.0" />
    </children>
 </Pane>

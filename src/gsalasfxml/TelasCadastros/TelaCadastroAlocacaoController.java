@@ -35,14 +35,13 @@ public class TelaCadastroAlocacaoController implements Initializable {
     @FXML private Label labelHorario;
     @FXML private Label labelDuracao;
     @FXML private Label labelMatU;
-    @FXML private Label labelAndar;
+    @FXML private Label labelAtualizacao;
     @FXML private TextField txtDescr;
     @FXML private TextField txtNumS;
     @FXML private TextField txtData;
     @FXML private TextField txtHorario;
     @FXML private TextField txtDuracao;
     @FXML private TextField txtMatU;
-    @FXML private ToggleGroup grupoAsa;
     @FXML private ToggleGroup grupoMesmoD;
     @FXML private ToggleGroup grupoMaisS;
    
@@ -92,6 +91,6 @@ public class TelaCadastroAlocacaoController implements Initializable {
         
         Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, time1, time2, dateFinal, matriculaU);
         AlocacaoDAO dao = new AlocacaoDAO();
-        dao.adicionar(aloc);
+        labelAtualizacao.setText(dao.adicionar(aloc));
     }
 }
