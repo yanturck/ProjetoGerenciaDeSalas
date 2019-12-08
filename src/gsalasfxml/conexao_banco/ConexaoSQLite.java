@@ -1,6 +1,7 @@
 package gsalasfxml.conexao_banco;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -60,7 +61,13 @@ public class ConexaoSQLite {
         return null;
        }
     }
-    
+    public PreparedStatement criarPreparedStatement(String sql){
+    try{
+        return this.conexao.prepareStatement(sql);
+       }catch(SQLException e){
+        return null;
+       }
+    }
     public Connection getConexao(){
         return conexao;
     }
