@@ -17,9 +17,8 @@ public class CriacaoTB {
     public void criarTabelas(){
         String sql1 = "CREATE TABLE IF NOT EXISTS SALA"
                 + "("
-                + "idSALA int primary key,"
+                + "idSALA char(4) primary key,"
                 + "ANDAR int not null,"
-                + "ASA varchar(5) not null,"
                 + "TIPOsala varchar(15) not null"
                 + ");";
         

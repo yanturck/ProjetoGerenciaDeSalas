@@ -1,5 +1,6 @@
 package gsalasfxml.TelasCadastros;
 
+import gsalasfxml.PojoDao.Alocacao;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -48,5 +49,10 @@ public class TelaCadastroAlocacaoController implements Initializable {
         txtHorario.setText("");
         txtDuracao.setText("");
         txtMatU.setText("");
+    }
+    @FXML public void acaoSalvar(){
+        
+       // Alocacao aloc = new Alocacao(txtDescr.getText(), );
+        
     }
 }

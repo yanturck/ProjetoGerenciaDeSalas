@@ -20,13 +20,12 @@ public class SalasDAO {
     }
     
     public String adicionar(Sala sala){
-        String sql = "INSERT INTO SALA(idSALA, ANDAR, ASA, TIPOsala) values (?, ?, ?, ?);";
+        String sql = "INSERT INTO SALA(idSALA, ANDAR, ASA, TIPOsala) values (?, ?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, sala.getIdSala());
+            stmt.setString(1, sala.getIdSala());
             stmt.setString(2, sala.getAndar());
-            stmt.setString(3, sala.getAsa());
-            stmt.setString(4, sala.getTipoSala());
+            stmt.setString(3, sala.getTipoSala());
             stmt.execute();
             stmt.close();
             return "Salvo com Sucesso!";

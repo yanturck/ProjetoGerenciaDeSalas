@@ -1,25 +1,23 @@
 package gsalasfxml.PojoDao;
 
 public class Sala {
-    private int idSala;
+    private String idSala;
     private String andar;
     private String tipoSala;
-    private String asa;
     
     
     
-    public Sala (int idSala, String andar, String asa, String tipoSala) {    
+    public Sala (String idSala, String andar, String tipoSala) {    
         super();
         this.idSala = idSala;
         this.andar = andar;
         this.tipoSala = tipoSala;
-        this.asa = asa;
     }
 
-    public int getIdSala() {
+    public String getIdSala() {
         return idSala;
     }
-    public void setIdSala(int idSala) {
+    public void setIdSala(String idSala) {
         this.idSala = idSala;
     }
 
@@ -35,13 +33,6 @@ public class Sala {
     }
     public void setTipoSala(String tipoSala) {
         this.tipoSala = tipoSala;
-    }
-
-    public String getAsa() {
-        return asa;
-    }
-    public void setAsa(String asa) {
-        this.asa = asa;
     }
 }
     

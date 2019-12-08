@@ -20,7 +20,7 @@ public class UsuariosDAO {
     }
     
     public String adicionar(Usuario user){
-        String sql = "INSERT INTO USUARIO(idUSER, NOME, TIPOuser, CURSO, TELEFONE) values (?, ?, ?, ?);";
+        String sql = "INSERT INTO USUARIO(idUSER, NOME, TIPOuser, CURSO, TELEFONE) values (?, ?, ?, ?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, user.getIdUsuario());

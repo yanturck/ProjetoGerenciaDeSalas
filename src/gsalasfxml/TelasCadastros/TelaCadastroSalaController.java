@@ -49,18 +49,21 @@ public class TelaCadastroSalaController implements Initializable {
         txtNumS.setText("");
     }
     @FXML public void acaoSalvar(){
-        int idSala = Integer.parseInt(txtNumS.getText());
+        String idSala;
+        RadioButton rAsa = (RadioButton) grupoAsa.getSelectedToggle();
+        if(rAsa.getText() == "Sul"){
+            idSala = txtNumS.getText() + "S";
+        }else{
+            idSala = txtNumS.getText() + "N";
+        }
         
         RadioButton rAndar = (RadioButton) grupoAndar.getSelectedToggle();
         String andar = rAndar.getText();
         
-        RadioButton rAsa = (RadioButton) grupoAsa.getSelectedToggle();
-        String asa = rAsa.getText();
-        
         RadioButton rTipo = (RadioButton) grupoTipoS.getSelectedToggle();
         String tipo = rTipo.getText();
         
-        Sala sala = new Sala(idSala, andar, asa, tipo);
+        Sala sala = new Sala(idSala, andar, tipo);
         SalasDAO dao = new SalasDAO();
         labelAtualizacao.setText(dao.adicionar(sala));
     }
