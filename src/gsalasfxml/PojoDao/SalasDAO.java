@@ -19,7 +19,7 @@ public class SalasDAO {
         }
     }
     
-    public void adicionar(Sala sala){
+    public String adicionar(Sala sala){
         String sql = "INSERT INTO SALA(idSALA, ANDAR, ASA, TIPOsala) values (?, ?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -29,8 +29,9 @@ public class SalasDAO {
             stmt.setString(4, sala.getTipoSala());
             stmt.execute();
             stmt.close();
+            return "Salvo com Sucesso!";
         }catch(SQLException u){
-            throw new RuntimeException(u);
+            return "Falha na operação!!!";
         }
     }
 }

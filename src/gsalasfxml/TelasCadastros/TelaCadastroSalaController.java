@@ -29,6 +29,7 @@ public class TelaCadastroSalaController implements Initializable {
     @FXML private Label labelTipoS;
     @FXML private Label labelAsa;
     @FXML private Label labelAndar;
+    @FXML private Label labelAtualizacao;
     @FXML private ToggleGroup grupoTipoS;
     @FXML private ToggleGroup grupoAsa;
     @FXML private ToggleGroup grupoAndar;
@@ -60,6 +61,6 @@ public class TelaCadastroSalaController implements Initializable {
         
         Sala sala = new Sala(idSala, andar, asa, tipo);
         SalasDAO dao = new SalasDAO();
-        dao.adicionar(sala);
+        labelAtualizacao.setText(dao.adicionar(sala));
     }
 }

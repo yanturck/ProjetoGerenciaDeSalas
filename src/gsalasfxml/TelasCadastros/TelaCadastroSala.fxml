@@ -50,5 +50,6 @@
             <RadioButton mnemonicParsing="false" text="Mini-Auditório" toggleGroup="$grupoTipoS" />
          </children>
       </VBox>
+      <Label fx:id="labelAtualizacao" layoutX="14.0" layoutY="328.0" />
    </children>
 </Pane>
