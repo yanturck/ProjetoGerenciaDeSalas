@@ -5,14 +5,23 @@ public class Alocacao {
     private String data;
     private String hora;
     private String tempo;
+    private int idUser;
 
-    public Alocacao(String des, int s, String dat, String h, String dur){
+    public Alocacao(String des, int s, String dat, String h, String dur, int idUser){
         super();
         this.descricao = des;
         this.data = dat;
         this.hora = h;
+        this.idUser = idUser;
     }
 
+    public int getIdUser() {
+        return idUser;
+    }
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+    
     public String getDescricao() {
         return descricao;
     }

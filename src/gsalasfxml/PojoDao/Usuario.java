@@ -7,6 +7,15 @@ public class Usuario {
     private String curso;
     private String telefone;
 
+    public Usuario(int idUser, String nome, String tipoUser, String curso, String telefone){
+        super();
+        this.idUsuario = idUser;
+        this.nome = nome;
+        this.tipoUsuario = tipoUser;
+        this.curso = curso;
+        this.telefone = telefone;
+    }
+    
     public int getIdUsuario() {
         return idUsuario;
     }

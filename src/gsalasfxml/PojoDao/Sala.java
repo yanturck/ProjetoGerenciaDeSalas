@@ -8,7 +8,7 @@ public class Sala {
     
     
     
-    public Sala (int idSala, String andar, String tipoSala, String asa) {    
+    public Sala (int idSala, String andar, String asa, String tipoSala) {    
         super();
         this.idSala = idSala;
         this.andar = andar;
@@ -37,7 +37,6 @@ public class Sala {
         this.tipoSala = tipoSala;
     }
 
-    
     public String getAsa() {
         return asa;
     }
