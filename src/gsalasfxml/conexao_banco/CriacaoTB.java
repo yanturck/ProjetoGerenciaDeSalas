@@ -37,7 +37,8 @@ public class CriacaoTB {
                 + "DESCRICAO varchar(50) not null,"
                 + "DATAaloc date not null,"
                 + "HORAaloc time not null,"
-                + "TEMPOaloc date not null,"
+                + "TEMPOaloc time not null,"
+                + "DURACAO date not null,"
                 + "idUser int not null,"
                 + "foreign key (idUser) references USUARIO(idUSER)"
                 + ");";

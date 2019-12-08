@@ -2,12 +2,12 @@ package gsalasfxml.PojoDao;
 
 public class Sala {
     private String idSala;
-    private String andar;
+    private int andar;
     private String tipoSala;
     
     
     
-    public Sala (String idSala, String andar, String tipoSala) {    
+    public Sala (String idSala, int andar, String tipoSala) {    
         super();
         this.idSala = idSala;
         this.andar = andar;
@@ -21,10 +21,10 @@ public class Sala {
         this.idSala = idSala;
     }
 
-    public String getAndar() {
+    public int getAndar() {
         return andar;
     }
-    public void setAndar(String andar) {
+    public void setAndar(int andar) {
         this.andar = andar;
     }
     

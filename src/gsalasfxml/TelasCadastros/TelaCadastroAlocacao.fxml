@@ -18,6 +18,11 @@
             <TextField fx:id="txtDescr" />
             <Label fx:id="labelMatU" text="Matrícula Usuário:" />
             <TextField fx:id="txtMatU" />
+            <RadioButton mnemonicParsing="false" text="Mais de uma Sala?">
+               <toggleGroup>
+                  <ToggleGroup fx:id="grupoMaisS" />
+               </toggleGroup>
+            </RadioButton>
             <Label fx:id="labelNumS" text="Número da Sala:" />
             <TextField fx:id="txtNumS" />
             <Label fx:id="labelAndar" text="Asa:" />
@@ -29,9 +34,14 @@
             <RadioButton mnemonicParsing="false" text="Sul" toggleGroup="$grupoAsa" />
             <Label fx:id="labelData" text="Data (dd/mm/ano):" />
             <TextField fx:id="txtData" />
-            <Label fx:id="labelHorario" text="Horário (hh:mm):" />
+            <Label fx:id="labelHorario" text="Horário Início-Termino( hh:mm):" />
             <TextField fx:id="txtHorario" prefHeight="25.0" prefWidth="216.0" />
-            <Label fx:id="labelDuracao" text="Tempo de Duração (em dias):" />
+            <RadioButton mnemonicParsing="false" text="Termina no mesmo dia?">
+               <toggleGroup>
+                  <ToggleGroup fx:id="grupoMesmoD" />
+               </toggleGroup>
+            </RadioButton>
+            <Label fx:id="labelDuracao" text="Caso não, em qual?" />
             <TextField fx:id="txtDuracao" />
          </children>
       </VBox>

@@ -28,11 +28,9 @@ public class TelaCadastroSalaController implements Initializable {
     @FXML private Label labelNumS;
     @FXML private Label labelTipoS;
     @FXML private Label labelAsa;
-    @FXML private Label labelAndar;
     @FXML private Label labelAtualizacao;
     @FXML private ToggleGroup grupoTipoS;
     @FXML private ToggleGroup grupoAsa;
-    @FXML private ToggleGroup grupoAndar;
     
     
     @Override
@@ -56,9 +54,8 @@ public class TelaCadastroSalaController implements Initializable {
         }else{
             idSala = txtNumS.getText() + "N";
         }
-        
-        RadioButton rAndar = (RadioButton) grupoAndar.getSelectedToggle();
-        String andar = rAndar.getText();
+        String tmp = txtNumS.getText();
+        int andar = Integer.parseInt(tmp.substring(0,1));
         
         RadioButton rTipo = (RadioButton) grupoTipoS.getSelectedToggle();
         String tipo = rTipo.getText();

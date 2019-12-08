@@ -1,17 +1,23 @@
 package gsalasfxml.PojoDao;
 
+import java.sql.Time;
+import java.sql.Date;
+
 public class Alocacao {
     private String descricao;
-    private String data;
-    private String hora;
-    private String tempo;
+    private Date data;
+    private Date duracao;
+    private Time hora;
+    private Time tempo;
     private int idUser;
 
-    public Alocacao(String des, int s, String dat, String h, String dur, int idUser){
+    public Alocacao(String des, Date dat, Date dur, Time h, Time tmp, int idUser){
         super();
         this.descricao = des;
         this.data = dat;
+        this.duracao = dur;
         this.hora = h;
+        this.tempo = tmp;
         this.idUser = idUser;
     }
 
@@ -30,27 +36,36 @@ public class Alocacao {
         this.descricao = descricao;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
 
-    public String getHora() {
+    public Time getHora() {
         return hora;
     }
 
-    public void setHora(String hora) {
+    public void setHora(Time hora) {
         this.hora = hora;
     }
 
-    public String getTempo() {
+    public Time getTempo() {
         return tempo;
     }
 
-    public void setTempo(String Tempo) {
+    public void setTempo(Time Tempo) {
         this.tempo = tempo;
     }
+    
+    public Date getDuracao() {
+        return duracao;
+    }
+
+    public void setDuracao(Date duracao) {
+        this.duracao = duracao;
+    }
+    
 }

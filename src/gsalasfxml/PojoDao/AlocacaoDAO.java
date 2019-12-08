@@ -19,19 +19,22 @@ public class AlocacaoDAO {
         }
     }
     
-    public void adicionar(Alocacao aloc){
-        String sql = "INSERT INTO USUARIO(DESCRICAO, DATAaloc, HORAaloc, TEMPOaloc, idUser) values (?, ?, ?, ?, ?);";
+    public String adicionar(Alocacao aloc){
+        String idAloc;
+        String sql = "INSERT INTO USUARIO(DESCRICAO, DATAaloc, HORAaloc, TEMPOaloc, DURACAO, idUser) values (?, ?, ?, ?, ?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, aloc.getDescricao());
-            stmt.setString(2, aloc.getData()); // falta transaformar pra date
-            stmt.setString(3, aloc.getHora()); // falta transforma pra time
-            stmt.setString(4, aloc.getTempo()); // falta transforma pra date
-            stmt.setInt(5, aloc.getIdUser());
+            stmt.setDate(2, aloc.getData()); 
+            stmt.setTime(3, aloc.getHora()); 
+            stmt.setTime(4, aloc.getTempo());
+            stmt.setDate(5, aloc.getDuracao());
+            stmt.setInt(6, aloc.getIdUser());
             stmt.execute();
             stmt.close();
+            return "Salvo com Sucesso!!";
         }catch(SQLException u){
-            throw new RuntimeException(u);
+            return "Salvo com Sucesso!!";
         }
     }
 }
