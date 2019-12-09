@@ -22,7 +22,6 @@ public class AlocacaoDAO {
     }
     
     public String adicionar(Alocacao aloc){
-        String idAloc;
         String sql = "INSERT INTO USUARIO(DESCRICAO, DATAaloc, HORAaloc, TEMPOaloc, DURACAO, idUser) values (?, ?, ?, ?, ?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);

@@ -95,6 +95,13 @@ public class TelaCadastroAlocacaoController implements Initializable {
         
         int matriculaU = Integer.parseInt(txtMatU.getText());
         
+        /*System.out.println(txtDescr.getText());
+        System.out.println(dateComeco);
+        System.out.println(timeComeco);
+        System.out.println(timeFinal);
+        System.out.println(dateFinal);
+        System.out.println(matriculaU);
+        */
         Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, timeComeco, timeFinal, dateFinal, matriculaU);
         AlocacaoDAO dao = new AlocacaoDAO();
         labelAtualizacao.setText(dao.adicionar(aloc));

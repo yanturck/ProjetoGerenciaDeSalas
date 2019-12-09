@@ -23,7 +23,7 @@
                   <ToggleGroup fx:id="grupoMaisS" />
                </toggleGroup>
             </RadioButton>
-            <Label fx:id="labelNumS" text="Número da Sala e Asa (exemplo: 105N):" />
+            <Label fx:id="labelNumS" text="Número da Sala e Asa (Ex: 105N):" />
             <TextField fx:id="txtNumS" />
             <Label fx:id="labelData" text="Data (dd/mm/ano):" />
             <TextField fx:id="txtData" />

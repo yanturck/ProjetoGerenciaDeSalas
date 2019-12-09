@@ -33,4 +33,18 @@ public class SalasDAO {
             return "Salvo com Sucesso!";
         }
     }
+   public String excluir(Sala sala){
+       String sql = "DELETE FROM SALA WHERE idSALA = ? AND ANDAR = ? AND TIPOsala = ?;";
+       try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, sala.getIdSala());
+            stmt.setInt(2, sala.getAndar());
+            stmt.setString(3, sala.getTipoSala());
+            stmt.execute();
+            stmt.close();
+            return "Exclusao Realizada!";
+        }catch(SQLException u){
+            return "Exclusao Realizada!";
+        }
+   }
 }
