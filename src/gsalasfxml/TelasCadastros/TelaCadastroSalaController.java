@@ -4,16 +4,19 @@ import gsalasfxml.PojoDao.Sala;
 import gsalasfxml.PojoDao.SalasDAO;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 
 /**
  * FXML Controller class
@@ -61,9 +64,18 @@ public class TelaCadastroSalaController implements Initializable {
     
     public boolean alertas(){
         boolean tmp = false;
-        RadioButton asa = (RadioButton) grupoAsa.getSelectedToggle();
-        RadioButton tipo = (RadioButton) grupoTipoS.getSelectedToggle();
-        if ((txtNumS.getText() == "") || (asa.getText() == "") || (tipo.getText() == "")){
+        boolean test1 = false;
+        boolean test2 = false;
+        if (rbNorte.isSelected() == false && rbSul.isSelected() == false){
+            test1 = true;
+        }
+        if (rbComum.isSelected() == false && rbMnAud.isSelected() == false){
+            test2 = true;
+        }
+        
+        if (txtNumS.getText() != "" && test1 == false && test2 == false){
+            tmp = false;
+        }else{
             tmp = true;
             Alert camposFalta = new Alert(Alert.AlertType.INFORMATION);
             camposFalta.setTitle("ATENÇÃO!!");
@@ -101,8 +113,22 @@ public class TelaCadastroSalaController implements Initializable {
     @FXML public void acaoExcluir(){
         boolean aux1 = alertas();
         if (aux1 == false){
-            SalasDAO dao = new SalasDAO();
-            labelAtualizacao.setText(dao.excluir(organizando()));
+            
+            Alert confirmarExcluir = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmarExcluir.setTitle("CONFIRMAÇÃO");
+            confirmarExcluir.setHeaderText("CONFIRMAR EXCLUSÃO");
+            confirmarExcluir.setContentText("Tem certeza que deseja excluir?");
+            confirmarExcluir.initModality(Modality.APPLICATION_MODAL);
+            confirmarExcluir.show();
+            
+            
+            Optional<ButtonType> result = confirmarExcluir.showAndWait();
+            if (result.get() == ButtonType.OK){
+                SalasDAO dao = new SalasDAO();
+                labelAtualizacao.setText(dao.excluir(organizando()));
+            } else if(result.get() == ButtonType.CANCEL){
+                labelAtualizacao.setText("Operação Cancelada");
+            }
         }
     }
 }
