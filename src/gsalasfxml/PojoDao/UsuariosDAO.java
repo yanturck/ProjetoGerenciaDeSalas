@@ -20,7 +20,7 @@ public class UsuariosDAO {
         }
     }
     
-    public String adicionar(Usuario user){
+    public void adicionar(Usuario user){
         String sql = "INSERT INTO USUARIO(idUSER, NOME, TIPOuser, CURSO, TELEFONE) values (?, ?, ?, ?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -31,9 +31,8 @@ public class UsuariosDAO {
             stmt.setString(5, user.getTelefone());
             stmt.execute();
             stmt.close();
-            return "Salvo com Sucesso!";
         }catch(SQLException u){
-            return "Salvo com Sucesso!";
+            throw new RuntimeException(u);
         }
     }
     public Usuario buscar(int idUser){

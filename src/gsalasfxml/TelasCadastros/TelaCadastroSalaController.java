@@ -108,7 +108,8 @@ public class TelaCadastroSalaController implements Initializable {
         boolean aux = alertas();
         if (aux == false){
             SalasDAO dao = new SalasDAO();
-            labelAtualizacao.setText(dao.adicionar(organizando()));
+            dao.adicionar(organizando());
+            labelAtualizacao.setText("Salvo com Sucesso!!");
         }
     }
     @FXML public void acaoExcluir(){
@@ -127,7 +128,8 @@ public class TelaCadastroSalaController implements Initializable {
             confirmarExcluir.showAndWait().ifPresent(b -> {
                 if (b == btnOk){
                     SalasDAO dao = new SalasDAO();
-                    labelAtualizacao.setText(dao.excluir(organizando()));
+                    dao.excluir(organizando());
+                    labelAtualizacao.setText("Exclusão Realizada!");
                 }else{
                     labelAtualizacao.setText("Operação Cancelada");
                 }

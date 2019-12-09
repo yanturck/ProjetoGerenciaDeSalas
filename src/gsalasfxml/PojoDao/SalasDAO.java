@@ -19,7 +19,7 @@ public class SalasDAO {
         }
     }
     
-    public String adicionar(Sala sala){
+    public void adicionar(Sala sala){
         String sql = "INSERT INTO SALA(idSALA, ANDAR, TIPOsala) values (?, ?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -28,12 +28,11 @@ public class SalasDAO {
             stmt.setString(3, sala.getTipoSala());
             stmt.execute();
             stmt.close();
-            return "Salvo com Sucesso!";
         }catch(SQLException u){
-            return "Salvo com Sucesso!";
+            throw new RuntimeException(u);
         }
     }
-   public String excluir(Sala sala){
+   public void excluir(Sala sala){
        String sql = "DELETE FROM SALA WHERE idSALA = ? AND ANDAR = ? AND TIPOsala = ?;";
        try{
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -42,9 +41,8 @@ public class SalasDAO {
             stmt.setString(3, sala.getTipoSala());
             stmt.execute();
             stmt.close();
-            return "Exclusao Realizada!";
         }catch(SQLException u){
-            return "Exclusao Realizada!";
+            throw new RuntimeException(u);
         }
    }
 }

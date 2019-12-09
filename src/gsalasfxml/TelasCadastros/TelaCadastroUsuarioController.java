@@ -26,6 +26,7 @@ public class TelaCadastroUsuarioController implements Initializable {
     @FXML private Button btnSalvar;
     @FXML private Button btnBuscar;
     @FXML private Button btnExcluir;
+    @FXML private Button btnAtualizar;
     @FXML private TextField txtNome;
     @FXML private TextField txtId;
     @FXML private TextField txtTipoU;
@@ -86,7 +87,8 @@ public class TelaCadastroUsuarioController implements Initializable {
             int idUser = Integer.parseInt(txtId.getText());
             Usuario user = new Usuario(idUser, txtNome.getText(), txtTipoU.getText(), txtCurso.getText(), txtTelefone.getText());
             UsuariosDAO dao = new UsuariosDAO();
-            labelAtualizacao.setText(dao.adicionar(user));
+            dao.adicionar(user);
+            labelAtualizacao.setText("Salvo com Sucesso!!");
          }
      }
      
@@ -128,7 +130,9 @@ public class TelaCadastroUsuarioController implements Initializable {
                     labelAtualizacao.setText("Operação Cancelada");
                 }
             });
-            
          }
+     }
+     @FXML public void acaoAtualizar(){
+         
      }
 }
