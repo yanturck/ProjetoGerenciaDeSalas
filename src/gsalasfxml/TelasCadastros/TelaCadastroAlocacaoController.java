@@ -32,6 +32,7 @@ public class TelaCadastroAlocacaoController implements Initializable {
     @FXML private Button btnSalvar;
     @FXML private Button btnBuscar;
     @FXML private Button btnExcluir;
+    @FXML private Button btnAtualizar;
     @FXML private Label labelDescr;
     @FXML private Label labelNumS;
     @FXML private Label labelData;
@@ -47,6 +48,8 @@ public class TelaCadastroAlocacaoController implements Initializable {
     @FXML private TextField txtMatU;
     @FXML private ToggleGroup grupoMesmoD;
     @FXML private ToggleGroup grupoMaisS;
+    @FXML private RadioButton maisSalas;
+    @FXML private RadioButton mesmoDia;
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -105,5 +108,14 @@ public class TelaCadastroAlocacaoController implements Initializable {
         Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, timeComeco, timeFinal, dateFinal, matriculaU);
         AlocacaoDAO dao = new AlocacaoDAO();
         labelAtualizacao.setText(dao.adicionar(aloc));
+    }
+    @FXML public void acaoBuscar(){
+        
+    }
+    @FXML public void acaoExcluir(){
+        
+    }
+    @FXML public void acaoAtualizar(){
+        
     }
 }

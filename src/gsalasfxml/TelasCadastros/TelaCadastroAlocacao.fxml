@@ -11,14 +11,14 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gsalasfxml.TelasCadastros.TelaCadastroAlocacaoController">
    <children>
       <Button fx:id="btnSalvar" layoutX="254.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoSalvar" text="Salvar" />
-      <Button fx:id="btnLimpar" layoutX="177.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoLimpar" text="Limpar" />
+      <Button fx:id="btnLimpar" layoutX="201.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoLimpar" text="Limpar" />
       <VBox layoutX="14.0" layoutY="14.0" prefHeight="286.0" prefWidth="227.0">
          <children>
             <Label fx:id="labelDescr" text="Descrição:" />
             <TextField fx:id="txtDescr" />
             <Label fx:id="labelMatU" text="Matrícula Usuário:" />
             <TextField fx:id="txtMatU" />
-            <RadioButton mnemonicParsing="false" text="Mais de uma Sala?">
+            <RadioButton fx:id="maisSalas" mnemonicParsing="false" text="Mais de uma Sala?">
                <toggleGroup>
                   <ToggleGroup fx:id="grupoMaisS" />
                </toggleGroup>
@@ -29,7 +29,7 @@
             <TextField fx:id="txtData" />
             <Label fx:id="labelHorario" text="Horário Início-Termino( hh:mm):" />
             <TextField fx:id="txtHorario" prefHeight="25.0" prefWidth="216.0" />
-            <RadioButton mnemonicParsing="false" text="Termina no mesmo dia?">
+            <RadioButton fx:id="mesmoDia" mnemonicParsing="false" text="Termina no mesmo dia?">
                <toggleGroup>
                   <ToggleGroup fx:id="grupoMesmoD" />
                </toggleGroup>
@@ -38,8 +38,9 @@
             <TextField fx:id="txtDuracao" />
          </children>
       </VBox>
-      <Button fx:id="btnExcluir" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Excluir" />
-      <Button fx:id="btnBuscar" layoutX="91.0" layoutY="361.0" mnemonicParsing="false" text="Buscar" />
+      <Button fx:id="btnExcluir" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoExcluir" text="Excluir" />
+      <Button fx:id="btnBuscar" layoutX="70.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoBuscar" text="Buscar" />
       <Label fx:id="labelAtualizacao" layoutX="14.0" layoutY="326.0" />
+      <Button fx:id="btnAtualizar" layoutX="129.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoAtualizar" text="Atualizar" />
    </children>
 </Pane>
