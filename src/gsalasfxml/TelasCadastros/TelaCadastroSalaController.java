@@ -2,6 +2,7 @@ package gsalasfxml.TelasCadastros;
 
 import gsalasfxml.PojoDao.Sala;
 import gsalasfxml.PojoDao.SalasDAO;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -62,12 +63,13 @@ public class TelaCadastroSalaController implements Initializable {
         boolean tmp = false;
         RadioButton asa = (RadioButton) grupoAsa.getSelectedToggle();
         RadioButton tipo = (RadioButton) grupoTipoS.getSelectedToggle();
-        if (txtNumS.getText() == "" || asa.getText() == "" || tipo.getText() == ""){
+        if ((txtNumS.getText() == "") || (asa.getText() == "") || (tipo.getText() == "")){
             tmp = true;
             Alert camposFalta = new Alert(Alert.AlertType.INFORMATION);
             camposFalta.setTitle("ATENÇÃO!!");
             camposFalta.setHeaderText("CAMPOS FALTANDO");
             camposFalta.setContentText("Por favor preencha todos os campos!");
+            camposFalta.show();
         }
         return tmp;
     }
