@@ -43,6 +43,9 @@ public class TelaCadastroUsuarioController implements Initializable {
            acaoSalvar();
            acaoLimpar();
     });
+       btnBuscar.setOnMouseClicked((MouseEvent e)->{
+           acaoBuscar();
+    });
     }    
      @FXML public void acaoLimpar(){
         txtNome.setText("");
@@ -56,5 +59,25 @@ public class TelaCadastroUsuarioController implements Initializable {
          Usuario user = new Usuario(idUser, txtNome.getText(), txtTipoU.getText(), txtCurso.getText(), txtTelefone.getText());
          UsuariosDAO dao = new UsuariosDAO();
          labelAtualizacao.setText(dao.adicionar(user));
+     }
+     
+     @FXML public void acaoBuscar(){
+         String tmp = txtId.getText();
+         int busca = Integer.parseInt(txtId.getText());
+         if(tmp==""){
+             labelAtualizacao.setText("Busca não realizada, preencher a MATRICULA");
+         } else{
+             UsuariosDAO dao = new UsuariosDAO();
+             Usuario user = dao.buscar(busca);
+             txtNome.setText(user.getNome());
+             txtId.setText(Integer.toString(user.getIdUsuario()));
+             txtTipoU.setText(user.getTipoUsuario());
+             txtCurso.setText(user.getCurso());
+             txtTelefone.setText(user.getTelefone());
+             labelAtualizacao.setText("Busca realizada!");
+         }
+         
+     }
+     @FXML public void acaoExcluir(){
      }
 }

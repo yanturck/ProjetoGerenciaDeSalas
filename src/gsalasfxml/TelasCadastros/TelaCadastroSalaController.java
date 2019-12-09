@@ -112,7 +112,9 @@ public class TelaCadastroSalaController implements Initializable {
     }
     @FXML public void acaoExcluir(){
         boolean aux1 = alertas();
-        if (aux1 == false){
+        SalasDAO dao = new SalasDAO();
+        labelAtualizacao.setText(dao.excluir(organizando()));
+        /*if (aux1 == false){
             
             Alert confirmarExcluir = new Alert(Alert.AlertType.CONFIRMATION);
             confirmarExcluir.setTitle("CONFIRMAÇÃO");
@@ -129,6 +131,6 @@ public class TelaCadastroSalaController implements Initializable {
             } else if(result.get() == ButtonType.CANCEL){
                 labelAtualizacao.setText("Operação Cancelada");
             }
-        }
+        }*/
     }
 }
