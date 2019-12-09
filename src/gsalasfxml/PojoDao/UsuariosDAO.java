@@ -60,4 +60,20 @@ public class UsuariosDAO {
             throw new RuntimeException(u);
         }
    }
+    public void atualizar(int idUser, Usuario user){
+        String sql = "UPDATE USUARIO SET idUSER = ?, NOME = ?, TIPOuser = ?, CURSO = ?, TELEFONE = ? WHERE idUSER = ?;";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, user.getIdUsuario());
+            stmt.setString(2, user.getNome());
+            stmt.setString(3, user.getTipoUsuario());
+            stmt.setString(4, user.getCurso());
+            stmt.setString(5, user.getTelefone());
+            stmt.setInt(6, idUser);
+            stmt.execute();
+            stmt.close();
+        }catch(SQLException u){
+            throw new RuntimeException(u);
+        }
+    }
 }

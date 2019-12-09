@@ -32,12 +32,14 @@ public class TelaCadastroUsuarioController implements Initializable {
     @FXML private TextField txtTipoU;
     @FXML private TextField txtCurso;
     @FXML private TextField txtTelefone;
+    @FXML private TextField txtIdUserN;
     @FXML private Label labelNome;
     @FXML private Label labelId;
     @FXML private Label labelTipoU;
     @FXML private Label labelCurso;
     @FXML private Label labelTelefone;
     @FXML private Label labelAtualizacao;
+    @FXML private Label labelIdUserN;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -55,6 +57,10 @@ public class TelaCadastroUsuarioController implements Initializable {
            acaoExcluir();
            acaoLimpar();
     });
+       btnAtualizar.setOnMouseClicked((MouseEvent e)->{
+           acaoAtualizar();
+           acaoLimpar();
+    });
     }    
      @FXML public void acaoLimpar(){
         txtNome.setText("");
@@ -62,6 +68,7 @@ public class TelaCadastroUsuarioController implements Initializable {
         txtTipoU.setText("");
         txtCurso.setText("");
         txtTelefone.setText("");
+        txtIdUserN.setText("");
     }
      public boolean alertaCampos(){
          boolean aux = false;
@@ -133,6 +140,29 @@ public class TelaCadastroUsuarioController implements Initializable {
          }
      }
      @FXML public void acaoAtualizar(){
-         
+         boolean tmp = alertaCampos();
+         if(tmp == false){
+            Alert confirmarExcluir = new Alert(Alert.AlertType.CONFIRMATION);
+            ButtonType btnOk = new ButtonType("OK");
+            ButtonType btnCan = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+            
+            confirmarExcluir.setTitle("CONFIRMAÇÃO");
+            confirmarExcluir.setHeaderText("CONFIRMAR ALTERAÇÃO");
+            confirmarExcluir.setContentText("Tem certeza que deseja alterar?");
+            
+            confirmarExcluir.getButtonTypes().setAll(btnOk, btnCan);
+            confirmarExcluir.showAndWait().ifPresent(b -> {
+                if (b == btnOk){
+                    int idUsuario = Integer.parseInt(txtId.getText());
+                    int idUser = Integer.parseInt(txtIdUserN.getText());
+                    Usuario user = new Usuario(idUser, txtNome.getText(), txtTipoU.getText(), txtCurso.getText(), txtTelefone.getText());
+                    UsuariosDAO dao = new UsuariosDAO();
+                    dao.atualizar(idUsuario, user);
+                    labelAtualizacao.setText("Alteração Realizada!");
+                }else{
+                    labelAtualizacao.setText("Operação Cancelada");
+                }
+            });
+         }
      }
 }
