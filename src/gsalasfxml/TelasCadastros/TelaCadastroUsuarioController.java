@@ -1,5 +1,6 @@
 package gsalasfxml.TelasCadastros;
 
+import gsalasfxml.PojoDao.SalasDAO;
 import gsalasfxml.PojoDao.Usuario;
 import gsalasfxml.PojoDao.UsuariosDAO;
 import java.net.URL;
@@ -8,6 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -72,7 +75,7 @@ public class TelaCadastroUsuarioController implements Initializable {
              Alert camposFalta = new Alert(Alert.AlertType.INFORMATION);
              camposFalta.setTitle("ATENÇÃO!!");
              camposFalta.setHeaderText("CAMPOS FALTANDO");
-             camposFalta.setContentText("Por favor preencha todos os campos!");
+             camposFalta.setContentText("Por favor preencha todos os campos obrigatórios!");
              camposFalta.show();
          }
          return aux;
@@ -106,11 +109,26 @@ public class TelaCadastroUsuarioController implements Initializable {
      @FXML public void acaoExcluir(){
          boolean tmp = alertaCampos();
          if(tmp == false){
-            int idUser = Integer.parseInt(txtId.getText());
-            Usuario user = new Usuario(idUser, txtNome.getText(), txtTipoU.getText(), txtCurso.getText(), txtTelefone.getText());
-            UsuariosDAO dao = new UsuariosDAO();
-            dao.excluir(user);
-            labelAtualizacao.setText("Exclusão Realizada!");
+            Alert confirmarExcluir = new Alert(Alert.AlertType.CONFIRMATION);
+            ButtonType btnOk = new ButtonType("OK");
+            ButtonType btnCan = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+            
+            confirmarExcluir.setTitle("CONFIRMAÇÃO");
+            confirmarExcluir.setHeaderText("CONFIRMAR EXCLUSÃO");
+            confirmarExcluir.setContentText("Tem certeza que deseja excluir?");
+            
+            confirmarExcluir.getButtonTypes().setAll(btnOk, btnCan);
+            confirmarExcluir.showAndWait().ifPresent(b -> {
+                if (b == btnOk){
+                    int idUser = Integer.parseInt(txtId.getText());
+                    UsuariosDAO dao = new UsuariosDAO();
+                    dao.excluir(idUser);
+                    labelAtualizacao.setText("Exclusão Realizada!");
+                }else{
+                    labelAtualizacao.setText("Operação Cancelada");
+                }
+            });
+            
          }
      }
 }

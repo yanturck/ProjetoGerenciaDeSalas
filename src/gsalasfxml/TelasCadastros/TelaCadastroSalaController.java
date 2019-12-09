@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -112,25 +113,25 @@ public class TelaCadastroSalaController implements Initializable {
     }
     @FXML public void acaoExcluir(){
         boolean aux1 = alertas();
-        SalasDAO dao = new SalasDAO();
-        labelAtualizacao.setText(dao.excluir(organizando()));
-        /*if (aux1 == false){
+        if (aux1 == false){
             
             Alert confirmarExcluir = new Alert(Alert.AlertType.CONFIRMATION);
+            ButtonType btnOk = new ButtonType("OK");
+            ButtonType btnCan = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+            
             confirmarExcluir.setTitle("CONFIRMAÇÃO");
             confirmarExcluir.setHeaderText("CONFIRMAR EXCLUSÃO");
             confirmarExcluir.setContentText("Tem certeza que deseja excluir?");
-            confirmarExcluir.initModality(Modality.APPLICATION_MODAL);
-            confirmarExcluir.show();
             
-            
-            Optional<ButtonType> result = confirmarExcluir.showAndWait();
-            if (result.get() == ButtonType.OK){
-                SalasDAO dao = new SalasDAO();
-                labelAtualizacao.setText(dao.excluir(organizando()));
-            } else if(result.get() == ButtonType.CANCEL){
-                labelAtualizacao.setText("Operação Cancelada");
-            }
-        }*/
+            confirmarExcluir.getButtonTypes().setAll(btnOk, btnCan);
+            confirmarExcluir.showAndWait().ifPresent(b -> {
+                if (b == btnOk){
+                    SalasDAO dao = new SalasDAO();
+                    labelAtualizacao.setText(dao.excluir(organizando()));
+                }else{
+                    labelAtualizacao.setText("Operação Cancelada");
+                }
+            });
+        }
     }
 }

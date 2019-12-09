@@ -43,20 +43,18 @@ public class UsuariosDAO {
             stmt.setInt(1, idUser);
             ResultSet rs = stmt.executeQuery();
             Usuario user = new Usuario(rs.getInt("idUSER"), rs.getString("NOME"), rs.getString("TIPOuser"), rs.getString("CURSO"), rs.getString("TELEFONE"));
+            stmt.execute();
+            stmt.close();
             return user;
         }catch(SQLException e){
             throw new RuntimeException(e);
         }
     }
-    public void excluir(Usuario user){
-       String sql = "DELETE FROM USUARIO WHERE idUSER = ? AND NOME = ? AND TIPOuser = ? AND CURSO = ? AND TELEFONE = ?;";
+    public void excluir(int user){
+       String sql = "DELETE FROM USUARIO WHERE idUSER = ?;";
        try{
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, user.getIdUsuario());
-            stmt.setString(2, user.getNome());
-            stmt.setString(3, user.getTipoUsuario());
-            stmt.setString(4, user.getCurso());
-            stmt.setString(5, user.getTelefone());
+            stmt.setInt(1, user);
             stmt.execute();
             stmt.close();
         }catch(SQLException u){
