@@ -1,7 +1,7 @@
 package gsalasfxml.PojoDao;
 
-import java.sql.Time;
 import java.sql.Date;
+import java.sql.Time;
 
 public class Alocacao {
     private String descricao;

@@ -7,6 +7,9 @@ import java.sql.Date;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -47,15 +50,11 @@ public class TelaCadastroAlocacaoController implements Initializable {
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        btnLimpar.setOnMouseClicked((MouseEvent e)->{
-       acaoLimpar(); 
+       btnLimpar.setOnMouseClicked((MouseEvent e)->{
+           acaoLimpar(); 
     });
         btnSalvar.setOnMouseClicked((MouseEvent e)->{
-            try {
-                acaoSalvar();
-            } catch (ParseException ex) {
-                Logger.getLogger(TelaCadastroAlocacaoController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+           acaoSalvar();
            acaoLimpar();
     });
     }    
@@ -67,29 +66,36 @@ public class TelaCadastroAlocacaoController implements Initializable {
         txtDuracao.setText("");
         txtMatU.setText("");
     }
-    @FXML public void acaoSalvar() throws ParseException{
-        SimpleDateFormat formatador1 = new SimpleDateFormat("HH:mm:ss");
-        String horario = txtHorario.getText();
-        String inicio = horario.substring(0,5) + ":00";
-        String termino = horario.substring(6,11) + ":00";
-        Time time1 = (Time) formatador1.parse(inicio);
-        Time time2 = (Time) formatador1.parse(termino);
-        
-        SimpleDateFormat formatador2 = new SimpleDateFormat("yyyy-mm-dd");
-        String tmp = txtData.getText();
-        String comeco = tmp.substring(6,11) + "-" + tmp.substring(3,5) + "-" + tmp.substring(0,3);
-        Date dateComeco = (Date) formatador2.parse(comeco);
+    @FXML public void acaoSalvar() {
+        String dataString = txtData.getText();
+        String[] dataSeparada = dataString.split("/");
+        LocalDate dateC = LocalDate.of(Integer.parseInt(dataSeparada[2]),Integer.parseInt(dataSeparada[1]), Integer.parseInt(dataSeparada[0]));
+        Date dateComeco = (Date) Date.from(dateC.atStartOfDay(ZoneId.systemDefault()).toInstant());
         
         Date dateFinal = dateComeco;
         if (txtDuracao.getText() != "" ){
-            String aux = txtDuracao.getText();
-            String data = aux.substring(6,11) + "-" + aux.substring(3,5) + "-" + aux.substring(0,3);
-            dateFinal = (Date) formatador2.parse(data);
+            String auxString = txtDuracao.getText();
+            String[] auxSeparada = auxString.split("/");
+            LocalDate dateF = LocalDate.of(Integer.parseInt(auxSeparada[2]),Integer.parseInt(auxSeparada[1]), Integer.parseInt(auxSeparada[0]));
+            dateFinal = (Date) Date.from(dateF.atStartOfDay(ZoneId.systemDefault()).toInstant());
         }
+        
+        String horasString = txtHorario.getText();
+        String[] horaSeparadas = horasString.split("-");
+        
+        String horaComeco = horaSeparadas[0];
+        String[] aux = horaComeco.split(":");
+        LocalTime timeC = LocalTime.of(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), 00);
+        Time timeComeco = Time.valueOf(timeC);
+        
+        String horaFinal = horaSeparadas[1];
+        String[] tmp = horaFinal.split(":");
+        LocalTime timeF = LocalTime.of(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]), 00);
+        Time timeFinal = Time.valueOf(timeF);
         
         int matriculaU = Integer.parseInt(txtMatU.getText());
         
-        Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, time1, time2, dateFinal, matriculaU);
+        Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, timeComeco, timeFinal, dateFinal, matriculaU);
         AlocacaoDAO dao = new AlocacaoDAO();
         labelAtualizacao.setText(dao.adicionar(aloc));
     }
