@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -46,6 +47,10 @@ public class TelaCadastroUsuarioController implements Initializable {
        btnBuscar.setOnMouseClicked((MouseEvent e)->{
            acaoBuscar();
     });
+       btnExcluir.setOnMouseClicked((MouseEvent e)->{
+           acaoExcluir();
+           acaoLimpar();
+    });
     }    
      @FXML public void acaoLimpar(){
         txtNome.setText("");
@@ -54,19 +59,37 @@ public class TelaCadastroUsuarioController implements Initializable {
         txtCurso.setText("");
         txtTelefone.setText("");
     }
+     public boolean alertaCampos(){
+         boolean aux = false;
+         int nome = txtNome.getText().length();
+         int id = txtId.getText().length();
+         int tipoU = txtTipoU.getText().length();
+         
+         if ((nome != 0) && (id != 0) && (tipoU != 0)){
+             aux = false;
+         } else{
+             aux = true;
+             Alert camposFalta = new Alert(Alert.AlertType.INFORMATION);
+             camposFalta.setTitle("ATENÇÃO!!");
+             camposFalta.setHeaderText("CAMPOS FALTANDO");
+             camposFalta.setContentText("Por favor preencha todos os campos!");
+             camposFalta.show();
+         }
+         return aux;
+     }
      @FXML public void acaoSalvar(){
-         int idUser = Integer.parseInt(txtId.getText());
-         Usuario user = new Usuario(idUser, txtNome.getText(), txtTipoU.getText(), txtCurso.getText(), txtTelefone.getText());
-         UsuariosDAO dao = new UsuariosDAO();
-         labelAtualizacao.setText(dao.adicionar(user));
+         boolean tmp = alertaCampos();
+         if(tmp == false){
+            int idUser = Integer.parseInt(txtId.getText());
+            Usuario user = new Usuario(idUser, txtNome.getText(), txtTipoU.getText(), txtCurso.getText(), txtTelefone.getText());
+            UsuariosDAO dao = new UsuariosDAO();
+            labelAtualizacao.setText(dao.adicionar(user));
+         }
      }
      
      @FXML public void acaoBuscar(){
-         String tmp = txtId.getText();
          int busca = Integer.parseInt(txtId.getText());
-         if(tmp==""){
-             labelAtualizacao.setText("Busca não realizada, preencher a MATRICULA");
-         } else{
+         if(busca!=0){
              UsuariosDAO dao = new UsuariosDAO();
              Usuario user = dao.buscar(busca);
              txtNome.setText(user.getNome());
@@ -75,9 +98,19 @@ public class TelaCadastroUsuarioController implements Initializable {
              txtCurso.setText(user.getCurso());
              txtTelefone.setText(user.getTelefone());
              labelAtualizacao.setText("Busca realizada!");
+         } else{
+             labelAtualizacao.setText("Busca não Realizada, informe a MATRICULA!");
          }
          
      }
      @FXML public void acaoExcluir(){
+         boolean tmp = alertaCampos();
+         if(tmp == false){
+            int idUser = Integer.parseInt(txtId.getText());
+            Usuario user = new Usuario(idUser, txtNome.getText(), txtTipoU.getText(), txtCurso.getText(), txtTelefone.getText());
+            UsuariosDAO dao = new UsuariosDAO();
+            dao.excluir(user);
+            labelAtualizacao.setText("Exclusão Realizada!");
+         }
      }
 }

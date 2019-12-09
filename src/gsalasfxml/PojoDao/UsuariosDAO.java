@@ -48,5 +48,19 @@ public class UsuariosDAO {
             throw new RuntimeException(e);
         }
     }
-    
+    public void excluir(Usuario user){
+       String sql = "DELETE FROM USUARIO WHERE idUSER = ? AND NOME = ? AND TIPOuser = ? AND CURSO = ? AND TELEFONE = ?;";
+       try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, user.getIdUsuario());
+            stmt.setString(2, user.getNome());
+            stmt.setString(3, user.getTipoUsuario());
+            stmt.setString(4, user.getCurso());
+            stmt.setString(5, user.getTelefone());
+            stmt.execute();
+            stmt.close();
+        }catch(SQLException u){
+            throw new RuntimeException(u);
+        }
+   }
 }
