@@ -79,23 +79,21 @@ public class TelaCadastroUsuarioController implements Initializable {
          if ((nome != 0) && (id != 0) && (tipoU != 0)){
              aux = false;
          } else{
-             aux = true;
-             Alert camposFalta = new Alert(Alert.AlertType.INFORMATION);
-             camposFalta.setTitle("ATENÇÃO!!");
-             camposFalta.setHeaderText("CAMPOS FALTANDO");
-             camposFalta.setContentText("Por favor preencha todos os campos obrigatórios!");
-             camposFalta.show();
+             Alertas alerteC = new Alertas();
+             aux = alerteC.camposFaltante();
          }
          return aux;
      }
      @FXML public void acaoSalvar(){
          boolean tmp = alertaCampos();
+         
          if(tmp == false){
             int idUser = Integer.parseInt(txtId.getText());
             Usuario user = new Usuario(idUser, txtNome.getText(), txtTipoU.getText(), txtCurso.getText(), txtTelefone.getText());
             UsuariosDAO dao = new UsuariosDAO();
             dao.adicionar(user);
             labelAtualizacao.setText("Salvo com Sucesso!!");
+            acaoLimpar();
          }
      }
      
@@ -133,6 +131,7 @@ public class TelaCadastroUsuarioController implements Initializable {
                     UsuariosDAO dao = new UsuariosDAO();
                     dao.excluir(idUser);
                     labelAtualizacao.setText("Exclusão Realizada!");
+                    acaoLimpar();
                 }else{
                     labelAtualizacao.setText("Operação Cancelada");
                 }
@@ -159,6 +158,7 @@ public class TelaCadastroUsuarioController implements Initializable {
                     UsuariosDAO dao = new UsuariosDAO();
                     dao.atualizar(idUsuario, user);
                     labelAtualizacao.setText("Alteração Realizada!");
+                    acaoLimpar();
                 }else{
                     labelAtualizacao.setText("Operação Cancelada");
                 }

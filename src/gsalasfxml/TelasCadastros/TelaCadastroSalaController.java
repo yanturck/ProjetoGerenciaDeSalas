@@ -77,12 +77,8 @@ public class TelaCadastroSalaController implements Initializable {
         if (txtNumS.getText() != "" && test1 == false && test2 == false){
             tmp = false;
         }else{
-            tmp = true;
-            Alert camposFalta = new Alert(Alert.AlertType.INFORMATION);
-            camposFalta.setTitle("ATENÇÃO!!");
-            camposFalta.setHeaderText("CAMPOS FALTANDO");
-            camposFalta.setContentText("Por favor preencha todos os campos!");
-            camposFalta.show();
+            Alertas alerteC = new Alertas();
+            tmp = alerteC.camposFaltante();
         }
         return tmp;
     }
