@@ -21,8 +21,8 @@ public class AlocacaoDAO {
         }
     }
     
-    public String adicionar(Alocacao aloc){
-        String sql = "INSERT INTO USUARIO(DESCRICAO, DATAaloc, HORAaloc, TEMPOaloc, DURACAO, idUser) values (?, ?, ?, ?, ?, ?);";
+    public void adicionar(Alocacao aloc){
+        String sql = "INSERT INTO ALOCACAO(DESCRICAO, DATAaloc, HORAaloc, TEMPOaloc, DURACAO, idUser) values (?, ?, ?, ?, ?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, aloc.getDescricao());
@@ -33,9 +33,17 @@ public class AlocacaoDAO {
             stmt.setInt(6, aloc.getIdUser());
             stmt.execute();
             stmt.close();
-            return "Salvo com Sucesso!!";
         }catch(SQLException u){
-            return "Salvo com Sucesso!!";
+            throw new RuntimeException(u);
         }
+    }
+    /*public Alocacao buscarAloc(int idAloc){
+        return aloc;
+    }*/
+    public void excluir(int idAloc){
+        
+    }
+    public void atualizar(int idAloc){
+        
     }
 }

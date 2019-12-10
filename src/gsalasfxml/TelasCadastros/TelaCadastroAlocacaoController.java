@@ -50,14 +50,19 @@ public class TelaCadastroAlocacaoController implements Initializable {
     @FXML private ToggleGroup grupoMaisS;
     @FXML private RadioButton maisSalas;
     @FXML private RadioButton mesmoDia;
-   
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        btnLimpar.setOnMouseClicked((MouseEvent e)->{
            acaoLimpar(); 
     });
         btnSalvar.setOnMouseClicked((MouseEvent e)->{
-           acaoSalvar();
+           try {
+               acaoSalvar();
+           } catch (ParseException ex) {
+               Logger.getLogger(TelaCadastroAlocacaoController.class.getName()).log(Level.SEVERE, null, ex);
+           }
            acaoLimpar();
     });
     }    
@@ -68,19 +73,17 @@ public class TelaCadastroAlocacaoController implements Initializable {
         txtHorario.setText("");
         txtDuracao.setText("");
         txtMatU.setText("");
+        maisSalas.setSelected(false);
+        mesmoDia.setSelected(false);
     }
-    @FXML public void acaoSalvar() {
-        String dataString = txtData.getText();
-        String[] dataSeparada = dataString.split("/");
-        LocalDate dateC = LocalDate.of(Integer.parseInt(dataSeparada[2]),Integer.parseInt(dataSeparada[1]), Integer.parseInt(dataSeparada[0]));
-        Date dateComeco = (Date) Date.from(dateC.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    @FXML public void acaoSalvar() throws ParseException {
+        Date dateComeco = (Date) sdf.parse(txtData.getText());
         
         Date dateFinal = dateComeco;
-        if (txtDuracao.getText() != "" ){
-            String auxString = txtDuracao.getText();
-            String[] auxSeparada = auxString.split("/");
-            LocalDate dateF = LocalDate.of(Integer.parseInt(auxSeparada[2]),Integer.parseInt(auxSeparada[1]), Integer.parseInt(auxSeparada[0]));
-            dateFinal = (Date) Date.from(dateF.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        if (mesmoDia.isSelected() == true){
+            dateFinal = dateComeco;
+        }else{
+            dateFinal = (Date) sdf.parse(txtDuracao.getText());
         }
         
         String horasString = txtHorario.getText();
@@ -107,7 +110,8 @@ public class TelaCadastroAlocacaoController implements Initializable {
         */
         Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, timeComeco, timeFinal, dateFinal, matriculaU);
         AlocacaoDAO dao = new AlocacaoDAO();
-        labelAtualizacao.setText(dao.adicionar(aloc));
+        dao.adicionar(aloc);
+        labelAtualizacao.setText("Alocação Realizada!");
     }
     @FXML public void acaoBuscar(){
         
