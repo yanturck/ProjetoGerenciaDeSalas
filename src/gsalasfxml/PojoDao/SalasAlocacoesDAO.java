@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -33,5 +35,27 @@ public class SalasAlocacoesDAO {
         }catch(SQLException u){
             throw new RuntimeException(u);
         }
+    }
+    public String buscarSala(int idAloc){
+        String sql = "SELECT idSALA FROM SALA_ALOCACAO WHERE = ?";
+        List<String> salas = new ArrayList<String>();
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idAloc);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()){
+                SalasAlocacoes sa = new SalasAlocacoes(rs.getString("idSALA"), idAloc);
+                salas.add(sa.getIdSala());
+            }
+            stmt.close();
+        }catch(SQLException u){
+            throw new RuntimeException(u);
+        }
+        String finalStr = "";
+        for (String str : salas) {
+            if (finalStr.trim().isEmpty()) {finalStr = str;}
+            else {finalStr = finalStr + "," + str;}
+	}
+        return finalStr;
     }
 }

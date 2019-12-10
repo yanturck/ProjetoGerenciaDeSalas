@@ -2,6 +2,8 @@ package gsalasfxml.TelasCadastros;
 
 import gsalasfxml.PojoDao.Alocacao;
 import gsalasfxml.PojoDao.AlocacaoDAO;
+import gsalasfxml.PojoDao.SalasAlocacoes;
+import gsalasfxml.PojoDao.SalasAlocacoesDAO;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.Time;
@@ -10,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,11 +91,12 @@ public class TelaCadastroAlocacaoController implements Initializable {
         String data = txtData.getText();
         String matriculaUser = txtMatU.getText();
         String duracao = txtDuracao.getText();
+        String numS = txtNumS.getText();
         
         if (mesDia== true || duracao.length() != 0){
             aux = true;
         }
-        if ((data.length() != 0) && (matriculaUser.length() != 0) && (aux == true)){
+        if ((data.length() != 0) && (matriculaUser.length() != 0) && (aux == true) && (numS.length() !=0 )){
             return false;
         }else {
             Alertas alerte = new Alertas();
@@ -128,7 +132,21 @@ public class TelaCadastroAlocacaoController implements Initializable {
             Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, (horaSeparadas[0] + ":00"), (horaSeparadas[1] + ":00"), dateFinal, matriculaU);
             AlocacaoDAO dao = new AlocacaoDAO();
             dao.adicionar(aloc);
-            labelAtualizacao.setText("Alocação Realizada!");
+            int id = dao.idAloc(aloc);
+            if (maisSalas.isSelected() == true){
+                String[] salas = txtNumS.getText().split(",");
+                int quantS = salas.hashCode();
+                while(quantS >= 0){
+                    SalasAlocacoes sa = new SalasAlocacoes(salas[quantS], id);
+                    SalasAlocacoesDAO dao2 = new SalasAlocacoesDAO();
+                    dao2.adicionar(sa);
+                }
+            }else{
+                SalasAlocacoes sa = new SalasAlocacoes(txtNumS.getText(), id);
+                SalasAlocacoesDAO dao2 = new SalasAlocacoesDAO();
+                dao2.adicionar(sa);
+            }
+            labelAtualizacao.setText("Alocação Realizada!\n Protocolo de Alocação " + id);
         }
     }
     @FXML public void acaoBuscar(){
@@ -136,14 +154,18 @@ public class TelaCadastroAlocacaoController implements Initializable {
             int idUser = Integer.parseInt(txtMatU.getText());
             AlocacaoDAO dao = new AlocacaoDAO();
             Alocacao aloc = dao.buscarAloc(txtData.getText(), txtDuracao.getText(), idUser);
+            int idA = dao.idAloc(aloc);
+            SalasAlocacoesDAO dao1 = new SalasAlocacoesDAO();
+            String salas = dao1.buscarSala(idA);
             txtDescr.setText(aloc.getDescricao());
-            //txtNumS.setText("");
-            txtData.setText("" + aloc.getData());
-            txtHorario.setText("" + aloc.getHora());
-            txtDuracao.setText("" + aloc.getDuracao());
-            txtMatU.setText("" + aloc.getIdUser());
-            //maisSalas.setSelected(false);
-            //mesmoDia.setSelected(false);
+            txtNumS.setText(salas);
+            txtData.setText(aloc.getData());
+            txtHorario.setText(aloc.getHora());
+            txtDuracao.setText(aloc.getDuracao());
+            txtMatU.setText(Integer.toString(aloc.getIdUser()));
+            labelAtualizacao.setText("Busca Realizada!");
+        }else{
+            labelAtualizacao.setText("Busca não Realizada, informe o Número da Sala, Matricula e Datas de Começo e Termino!");
         }
     }
     @FXML public void acaoExcluir(){

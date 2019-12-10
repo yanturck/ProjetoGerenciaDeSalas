@@ -43,7 +43,7 @@ public class TelaCadastroUsuarioController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       btnLimpar.setOnMouseClicked((MouseEvent e)->{
+       /*btnLimpar.setOnMouseClicked((MouseEvent e)->{
            acaoLimpar(); 
     });
        btnSalvar.setOnMouseClicked((MouseEvent e)->{
@@ -60,7 +60,7 @@ public class TelaCadastroUsuarioController implements Initializable {
        btnAtualizar.setOnMouseClicked((MouseEvent e)->{
            acaoAtualizar();
            acaoLimpar();
-    });
+    });*/
     }    
      @FXML public void acaoLimpar(){
         txtNome.setText("");
