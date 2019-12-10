@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 public class SalasDAO {
     private Connection connection;
-    private String url = "jdbc:sqlite:banco_de_dados/GerensiaSalasqlite.db";
+    private String url = "jdbc:sqlite:banco_de_dados/GerenciaSalasqlite.db";
     
     public SalasDAO(){
         try{
