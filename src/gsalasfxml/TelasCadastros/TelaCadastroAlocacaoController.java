@@ -56,10 +56,10 @@ public class TelaCadastroAlocacaoController implements Initializable {
        btnLimpar.setOnMouseClicked((MouseEvent e)->{
            acaoLimpar(); 
     });
-        btnSalvar.setOnMouseClicked((MouseEvent e)->{
+        /*btnSalvar.setOnMouseClicked((MouseEvent e)->{
             acaoSalvar();
            acaoLimpar();
-    });
+    });*/
     }    
     
     public boolean alertaCampos(){
@@ -114,7 +114,8 @@ public class TelaCadastroAlocacaoController implements Initializable {
             /*String[] dataString = txtData.getText().split("/");
             LocalDate dateC = LocalDate.of(Integer.parseInt(dataString[2]), Integer.parseInt(dataString[1]), Integer.parseInt(dataString[0]));
             Date dateComeco = (Date) Date.from(dateC.atStartOfDay(ZoneId.systemDefault()).toInstant());*/
-            String dateComeco = txtData.getText();
+            String[] dataString = txtData.getText().split("/");
+            String dateComeco = dataString[2] + "-" + dataString[1] + "-" + dataString[0];
             String dateFinal = dateComeco;
             if (mesmoDia.isSelected() == true){
                 dateFinal = dateComeco;
@@ -122,7 +123,8 @@ public class TelaCadastroAlocacaoController implements Initializable {
                 /*String[] duraString = txtDuracao.getText().split("/");
                 LocalDate dateF = LocalDate.of(Integer.parseInt(duraString[2]), Integer.parseInt(duraString[1]), Integer.parseInt(duraString[0]));
                 dateFinal = (Date) Date.from(dateF.atStartOfDay(ZoneId.systemDefault()).toInstant());*/
-                dateFinal = txtDuracao.getText();
+                String[] dataString1 = txtDuracao.getText().split("/");
+                dateFinal = dataString1[2] + "-" + dataString1[1] + "-" + dataString1[0];
             }
 
             String horasString = txtHorario.getText();
@@ -140,7 +142,7 @@ public class TelaCadastroAlocacaoController implements Initializable {
 
             int matriculaU = Integer.parseInt(txtMatU.getText());
 
-            Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, horaSeparadas[0], horaSeparadas[1], dateFinal, matriculaU);
+            Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, (horaSeparadas[0] + ":00"), (horaSeparadas[1] + ":00"), dateFinal, matriculaU);
             AlocacaoDAO dao = new AlocacaoDAO();
             dao.adicionar(aloc);
             labelAtualizacao.setText("Alocação Realizada!");
