@@ -22,7 +22,7 @@ public class ConexaoSQLite {
 
         try {
 
-            String url = "jdbc:sqlite:banco_de_dados/GerensiaSalasqlite.db";
+            String url = "jdbc:sqlite:banco_de_dados/GerenciaSalasqlite.db";
             this.conexao = DriverManager.getConnection(url);
 
         } catch (SQLException e) {
