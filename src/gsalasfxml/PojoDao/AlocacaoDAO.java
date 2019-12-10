@@ -39,6 +39,25 @@ public class AlocacaoDAO {
             throw new RuntimeException(u);
         }
     }
+    public int idAloc(Alocacao aloc){
+        String sql = "SELECT idALOCACAO FROM ALOCACAO WHERE DESCRICAO = ? AND DATAaloc = ? AND HORAaloc = ? AND TEMPOaloc = ? AND DURACAO = ? AND idUser = ?;";
+        int idAloc;
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, aloc.getDescricao());
+            stmt.setString(2, aloc.getData()); 
+            stmt.setString(3, aloc.getHora()); 
+            stmt.setString(4, aloc.getTempo());
+            stmt.setString(5, aloc.getDuracao());
+            stmt.setInt(6, aloc.getIdUser());
+            ResultSet rs = stmt.executeQuery();
+            idAloc = rs.getInt("idALOCACAO");
+            stmt.close();
+        }catch(SQLException u){
+            throw new RuntimeException(u);
+        }
+        return idAloc;
+    }
     public Alocacao buscarAloc(String dia, String dura, int idUser){
         String sql = "SELECT DESCRICAO, HORAaloc, TEMPOaloc FROM ALOCACAO WHERE DATAaloc = ? AND DURACAO = ? AND idUser = ?;";
         try{
@@ -48,7 +67,6 @@ public class AlocacaoDAO {
             stmt.setInt(3, idUser);
             ResultSet rs = stmt.executeQuery();
             Alocacao aloc = new Alocacao(rs.getString("DESCRICAO"), dia, rs.getString("HORAaloc"), rs.getString("TEMPOaloc"), dura, idUser);
-            stmt.execute();
             stmt.close();
             return aloc;
         }catch(SQLException e){
