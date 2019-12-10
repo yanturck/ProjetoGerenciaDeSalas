@@ -111,35 +111,18 @@ public class TelaCadastroAlocacaoController implements Initializable {
     }
     @FXML public void acaoSalvar(){
         if (alertaCampos() == false){
-            /*String[] dataString = txtData.getText().split("/");
-            LocalDate dateC = LocalDate.of(Integer.parseInt(dataString[2]), Integer.parseInt(dataString[1]), Integer.parseInt(dataString[0]));
-            Date dateComeco = (Date) Date.from(dateC.atStartOfDay(ZoneId.systemDefault()).toInstant());*/
             String[] dataString = txtData.getText().split("/");
             String dateComeco = dataString[2] + "-" + dataString[1] + "-" + dataString[0];
             String dateFinal = dateComeco;
             if (mesmoDia.isSelected() == true){
                 dateFinal = dateComeco;
             }else{
-                /*String[] duraString = txtDuracao.getText().split("/");
-                LocalDate dateF = LocalDate.of(Integer.parseInt(duraString[2]), Integer.parseInt(duraString[1]), Integer.parseInt(duraString[0]));
-                dateFinal = (Date) Date.from(dateF.atStartOfDay(ZoneId.systemDefault()).toInstant());*/
                 String[] dataString1 = txtDuracao.getText().split("/");
                 dateFinal = dataString1[2] + "-" + dataString1[1] + "-" + dataString1[0];
             }
 
             String horasString = txtHorario.getText();
             String[] horaSeparadas = horasString.split("-");
-
-            /*String horaComeco = horaSeparadas[0];
-            String[] aux = horaComeco.split(":");
-            LocalTime timeC = LocalTime.of(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), 00);
-            Time timeComeco = Time.valueOf(timeC);
-
-            String horaFinal = horaSeparadas[1];
-            String[] tmp = horaFinal.split(":");
-            LocalTime timeF = LocalTime.of(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]), 00);
-            Time timeFinal = Time.valueOf(timeF);*/
-
             int matriculaU = Integer.parseInt(txtMatU.getText());
 
             Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, (horaSeparadas[0] + ":00"), (horaSeparadas[1] + ":00"), dateFinal, matriculaU);
@@ -150,18 +133,6 @@ public class TelaCadastroAlocacaoController implements Initializable {
     }
     @FXML public void acaoBuscar(){
         if (alertaCamposB() == false){
-            /*String[] dataString = txtData.getText().split("/");
-            LocalDate dateC = LocalDate.of(Integer.parseInt(dataString[2]), Integer.parseInt(dataString[1]), Integer.parseInt(dataString[0]));
-            Date dateComeco = (Date) Date.from(dateC.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-            Date dateFinal = dateComeco;
-            if (mesmoDia.isSelected() == true){
-                dateFinal = dateComeco;
-            }else{
-                String[] duraString = txtDuracao.getText().split("/");
-                LocalDate dateF = LocalDate.of(Integer.parseInt(duraString[2]), Integer.parseInt(duraString[1]), Integer.parseInt(duraString[0]));
-                dateFinal = (Date) Date.from(dateF.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            }*/
             int idUser = Integer.parseInt(txtMatU.getText());
             AlocacaoDAO dao = new AlocacaoDAO();
             Alocacao aloc = dao.buscarAloc(txtData.getText(), txtDuracao.getText(), idUser);

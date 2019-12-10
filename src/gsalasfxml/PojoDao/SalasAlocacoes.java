@@ -5,20 +5,20 @@ package gsalasfxml.PojoDao;
  * @author Yan Rocha
  */
 public class SalasAlocacoes {
-    private int idSala;
+    private String idSala;
     private int idAlocacao;
     
-    public SalasAlocacoes(int idSala, int idAlocacao){
+    public SalasAlocacoes(String idSala, int idAlocacao){
         super();
         this.idSala = idSala;
         this.idAlocacao = idAlocacao;
     }
 
-    public int getIdSala() {
+    public String getIdSala() {
         return idSala;
     }
 
-    public void setIdSala(int idSala) {
+    public void setIdSala(String idSala) {
         this.idSala = idSala;
     }
 

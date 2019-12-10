@@ -42,7 +42,6 @@ public class UsuariosDAO {
             stmt.setInt(1, idUser);
             ResultSet rs = stmt.executeQuery();
             Usuario user = new Usuario(rs.getInt("idUSER"), rs.getString("NOME"), rs.getString("TIPOuser"), rs.getString("CURSO"), rs.getString("TELEFONE"));
-            stmt.execute();
             stmt.close();
             return user;
         }catch(SQLException e){

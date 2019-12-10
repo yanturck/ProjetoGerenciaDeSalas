@@ -3,6 +3,7 @@ package gsalasfxml.PojoDao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -25,7 +26,7 @@ public class SalasAlocacoesDAO {
         String sql = "INSERT INTO SALA_ALOCACAO(idSALA, idALOCACAO) values (?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, sa.getIdSala());
+            stmt.setString(1, sa.getIdSala());
             stmt.setInt(2, sa.getIdAlocacao());
             stmt.execute();
             stmt.close();
