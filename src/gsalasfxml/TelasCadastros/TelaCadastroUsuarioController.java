@@ -96,12 +96,22 @@ public class TelaCadastroUsuarioController implements Initializable {
             acaoLimpar();
          }
      }
-     
+     public boolean alertaCamposB(){
+        boolean aux = false;
+        String id = txtId.getText();
+        
+        if (id.length() != 0){
+            return false;
+        }else {
+            Alertas alerte = new Alertas();
+            return alerte.camposFaltante();
+        }
+    }
      @FXML public void acaoBuscar(){
-         int busca = Integer.parseInt(txtId.getText());
-         if(busca!=0){
+         boolean busca = alertaCamposB();
+         if(busca == false){
              UsuariosDAO dao = new UsuariosDAO();
-             Usuario user = dao.buscar(busca);
+             Usuario user = dao.buscar(Integer.parseInt(txtId.getText()));
              txtNome.setText(user.getNome());
              txtId.setText(Integer.toString(user.getIdUsuario()));
              txtTipoU.setText(user.getTipoUsuario());
