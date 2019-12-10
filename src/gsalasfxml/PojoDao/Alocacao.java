@@ -5,13 +5,13 @@ import java.sql.Time;
 
 public class Alocacao {
     private String descricao;
-    private Date data;
-    private Date duracao;
-    private Time hora;
-    private Time tempo;
+    private String data;
+    private String duracao;
+    private String hora;
+    private String tempo;
     private int idUser;
 
-    public Alocacao(String des, Date dat, Time h, Time tmp, Date dur, int idUser){
+    public Alocacao(String des, String dat, String h, String tmp, String dur, int idUser){
         super();
         this.descricao = des;
         this.data = dat;
@@ -36,35 +36,35 @@ public class Alocacao {
         this.descricao = descricao;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
-    public Time getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(Time hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
-    public Time getTempo() {
+    public String getTempo() {
         return tempo;
     }
 
-    public void setTempo(Time Tempo) {
+    public void setTempo(String Tempo) {
         this.tempo = tempo;
     }
     
-    public Date getDuracao() {
+    public String getDuracao() {
         return duracao;
     }
 
-    public void setDuracao(Date duracao) {
+    public void setDuracao(String duracao) {
         this.duracao = duracao;
     }
     

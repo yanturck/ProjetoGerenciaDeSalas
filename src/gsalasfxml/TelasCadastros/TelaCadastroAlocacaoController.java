@@ -50,7 +50,6 @@ public class TelaCadastroAlocacaoController implements Initializable {
     @FXML private ToggleGroup grupoMaisS;
     @FXML private RadioButton maisSalas;
     @FXML private RadioButton mesmoDia;
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -58,11 +57,7 @@ public class TelaCadastroAlocacaoController implements Initializable {
            acaoLimpar(); 
     });
         btnSalvar.setOnMouseClicked((MouseEvent e)->{
-           try {
-               acaoSalvar();
-           } catch (ParseException ex) {
-               Logger.getLogger(TelaCadastroAlocacaoController.class.getName()).log(Level.SEVERE, null, ex);
-           }
+            acaoSalvar();
            acaoLimpar();
     });
     }    
@@ -87,7 +82,23 @@ public class TelaCadastroAlocacaoController implements Initializable {
             return alerte.camposFaltante();
         }
     }
-    
+    public boolean alertaCamposB(){
+        boolean aux = false;
+        boolean mesDia = mesmoDia.isSelected();
+        String data = txtData.getText();
+        String matriculaUser = txtMatU.getText();
+        String duracao = txtDuracao.getText();
+        
+        if (mesDia== true || duracao.length() != 0){
+            aux = true;
+        }
+        if ((data.length() != 0) && (matriculaUser.length() != 0) && (aux == true)){
+            return false;
+        }else {
+            Alertas alerte = new Alertas();
+            return alerte.camposFaltante();
+        }
+    }
     @FXML public void acaoLimpar(){
         txtDescr.setText("");
         txtNumS.setText("");
@@ -98,21 +109,26 @@ public class TelaCadastroAlocacaoController implements Initializable {
         maisSalas.setSelected(false);
         mesmoDia.setSelected(false);
     }
-    @FXML public void acaoSalvar() throws ParseException {
+    @FXML public void acaoSalvar(){
         if (alertaCampos() == false){
-            Date dateComeco = (Date) sdf.parse(txtData.getText());
-
-            Date dateFinal = dateComeco;
+            /*String[] dataString = txtData.getText().split("/");
+            LocalDate dateC = LocalDate.of(Integer.parseInt(dataString[2]), Integer.parseInt(dataString[1]), Integer.parseInt(dataString[0]));
+            Date dateComeco = (Date) Date.from(dateC.atStartOfDay(ZoneId.systemDefault()).toInstant());*/
+            String dateComeco = txtData.getText();
+            String dateFinal = dateComeco;
             if (mesmoDia.isSelected() == true){
                 dateFinal = dateComeco;
             }else{
-                dateFinal = (Date) sdf.parse(txtDuracao.getText());
+                /*String[] duraString = txtDuracao.getText().split("/");
+                LocalDate dateF = LocalDate.of(Integer.parseInt(duraString[2]), Integer.parseInt(duraString[1]), Integer.parseInt(duraString[0]));
+                dateFinal = (Date) Date.from(dateF.atStartOfDay(ZoneId.systemDefault()).toInstant());*/
+                dateFinal = txtDuracao.getText();
             }
 
             String horasString = txtHorario.getText();
             String[] horaSeparadas = horasString.split("-");
 
-            String horaComeco = horaSeparadas[0];
+            /*String horaComeco = horaSeparadas[0];
             String[] aux = horaComeco.split(":");
             LocalTime timeC = LocalTime.of(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), 00);
             Time timeComeco = Time.valueOf(timeC);
@@ -120,25 +136,42 @@ public class TelaCadastroAlocacaoController implements Initializable {
             String horaFinal = horaSeparadas[1];
             String[] tmp = horaFinal.split(":");
             LocalTime timeF = LocalTime.of(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]), 00);
-            Time timeFinal = Time.valueOf(timeF);
+            Time timeFinal = Time.valueOf(timeF);*/
 
             int matriculaU = Integer.parseInt(txtMatU.getText());
 
-            /*System.out.println(txtDescr.getText());
-            System.out.println(dateComeco);
-            System.out.println(timeComeco);
-            System.out.println(timeFinal);
-            System.out.println(dateFinal);
-            System.out.println(matriculaU);
-            */
-            Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, timeComeco, timeFinal, dateFinal, matriculaU);
+            Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, horaSeparadas[0], horaSeparadas[1], dateFinal, matriculaU);
             AlocacaoDAO dao = new AlocacaoDAO();
             dao.adicionar(aloc);
             labelAtualizacao.setText("Alocação Realizada!");
         }
     }
     @FXML public void acaoBuscar(){
-        
+        if (alertaCamposB() == false){
+            /*String[] dataString = txtData.getText().split("/");
+            LocalDate dateC = LocalDate.of(Integer.parseInt(dataString[2]), Integer.parseInt(dataString[1]), Integer.parseInt(dataString[0]));
+            Date dateComeco = (Date) Date.from(dateC.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+            Date dateFinal = dateComeco;
+            if (mesmoDia.isSelected() == true){
+                dateFinal = dateComeco;
+            }else{
+                String[] duraString = txtDuracao.getText().split("/");
+                LocalDate dateF = LocalDate.of(Integer.parseInt(duraString[2]), Integer.parseInt(duraString[1]), Integer.parseInt(duraString[0]));
+                dateFinal = (Date) Date.from(dateF.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            }*/
+            int idUser = Integer.parseInt(txtMatU.getText());
+            AlocacaoDAO dao = new AlocacaoDAO();
+            Alocacao aloc = dao.buscarAloc(txtData.getText(), txtDuracao.getText(), idUser);
+            txtDescr.setText(aloc.getDescricao());
+            //txtNumS.setText("");
+            txtData.setText("" + aloc.getData());
+            txtHorario.setText("" + aloc.getHora());
+            txtDuracao.setText("" + aloc.getDuracao());
+            txtMatU.setText("" + aloc.getIdUser());
+            //maisSalas.setSelected(false);
+            //mesmoDia.setSelected(false);
+        }
     }
     @FXML public void acaoExcluir(){
         

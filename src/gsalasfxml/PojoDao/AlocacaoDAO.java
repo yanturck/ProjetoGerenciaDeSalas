@@ -2,8 +2,10 @@ package gsalasfxml.PojoDao;
 
 import gsalasfxml.conexao_banco.ConexaoSQLite;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -26,10 +28,10 @@ public class AlocacaoDAO {
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, aloc.getDescricao());
-            stmt.setDate(2, aloc.getData()); 
-            stmt.setTime(3, aloc.getHora()); 
-            stmt.setTime(4, aloc.getTempo());
-            stmt.setDate(5, aloc.getDuracao());
+            stmt.setString(2, aloc.getData()); 
+            stmt.setString(3, aloc.getHora()); 
+            stmt.setString(4, aloc.getTempo());
+            stmt.setString(5, aloc.getDuracao());
             stmt.setInt(6, aloc.getIdUser());
             stmt.execute();
             stmt.close();
@@ -37,9 +39,22 @@ public class AlocacaoDAO {
             throw new RuntimeException(u);
         }
     }
-    /*public Alocacao buscarAloc(int idAloc){
-        return aloc;
-    }*/
+    public Alocacao buscarAloc(String dia, String dura, int idUser){
+        String sql = "SELECT DESCRICAO, HORAaloc, TEMPOaloc FROM ALOCACAO WHERE DATAaloc = ? AND DURACAO = ? AND idUser = ?;";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, dia);
+            stmt.setString(2, dura);
+            stmt.setInt(3, idUser);
+            ResultSet rs = stmt.executeQuery();
+            Alocacao aloc = new Alocacao(rs.getString("DESCRICAO"), dia, rs.getString("HORAaloc"), rs.getString("TEMPOaloc"), dura, idUser);
+            stmt.execute();
+            stmt.close();
+            return aloc;
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
     public void excluir(int idAloc){
         
     }
