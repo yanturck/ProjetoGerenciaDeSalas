@@ -66,6 +66,28 @@ public class TelaCadastroAlocacaoController implements Initializable {
            acaoLimpar();
     });
     }    
+    
+    public boolean alertaCampos(){
+        boolean aux = false;
+        String descricao = txtDescr.getText();
+        boolean mesDia = mesmoDia.isSelected();
+        String numeroSala = txtNumS.getText();
+        String data = txtData.getText();
+        String horario = txtHorario.getText();
+        String matriculaUser = txtMatU.getText();
+        String duracao = txtDuracao.getText();
+        
+        if (mesDia== true || duracao.length() != 0){
+            aux = true;
+        }
+        if ((descricao.length() != 0) && (numeroSala.length() != 0) && (data.length() != 0) && (horario.length() != 0) && (matriculaUser.length() != 0) && (aux == true)){
+            return false;
+        }else {
+            Alertas alerte = new Alertas();
+            return alerte.camposFaltante();
+        }
+    }
+    
     @FXML public void acaoLimpar(){
         txtDescr.setText("");
         txtNumS.setText("");
@@ -77,41 +99,43 @@ public class TelaCadastroAlocacaoController implements Initializable {
         mesmoDia.setSelected(false);
     }
     @FXML public void acaoSalvar() throws ParseException {
-        Date dateComeco = (Date) sdf.parse(txtData.getText());
-        
-        Date dateFinal = dateComeco;
-        if (mesmoDia.isSelected() == true){
-            dateFinal = dateComeco;
-        }else{
-            dateFinal = (Date) sdf.parse(txtDuracao.getText());
+        if (alertaCampos() == false){
+            Date dateComeco = (Date) sdf.parse(txtData.getText());
+
+            Date dateFinal = dateComeco;
+            if (mesmoDia.isSelected() == true){
+                dateFinal = dateComeco;
+            }else{
+                dateFinal = (Date) sdf.parse(txtDuracao.getText());
+            }
+
+            String horasString = txtHorario.getText();
+            String[] horaSeparadas = horasString.split("-");
+
+            String horaComeco = horaSeparadas[0];
+            String[] aux = horaComeco.split(":");
+            LocalTime timeC = LocalTime.of(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), 00);
+            Time timeComeco = Time.valueOf(timeC);
+
+            String horaFinal = horaSeparadas[1];
+            String[] tmp = horaFinal.split(":");
+            LocalTime timeF = LocalTime.of(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]), 00);
+            Time timeFinal = Time.valueOf(timeF);
+
+            int matriculaU = Integer.parseInt(txtMatU.getText());
+
+            /*System.out.println(txtDescr.getText());
+            System.out.println(dateComeco);
+            System.out.println(timeComeco);
+            System.out.println(timeFinal);
+            System.out.println(dateFinal);
+            System.out.println(matriculaU);
+            */
+            Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, timeComeco, timeFinal, dateFinal, matriculaU);
+            AlocacaoDAO dao = new AlocacaoDAO();
+            dao.adicionar(aloc);
+            labelAtualizacao.setText("Alocação Realizada!");
         }
-        
-        String horasString = txtHorario.getText();
-        String[] horaSeparadas = horasString.split("-");
-        
-        String horaComeco = horaSeparadas[0];
-        String[] aux = horaComeco.split(":");
-        LocalTime timeC = LocalTime.of(Integer.parseInt(aux[0]), Integer.parseInt(aux[1]), 00);
-        Time timeComeco = Time.valueOf(timeC);
-        
-        String horaFinal = horaSeparadas[1];
-        String[] tmp = horaFinal.split(":");
-        LocalTime timeF = LocalTime.of(Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1]), 00);
-        Time timeFinal = Time.valueOf(timeF);
-        
-        int matriculaU = Integer.parseInt(txtMatU.getText());
-        
-        /*System.out.println(txtDescr.getText());
-        System.out.println(dateComeco);
-        System.out.println(timeComeco);
-        System.out.println(timeFinal);
-        System.out.println(dateFinal);
-        System.out.println(matriculaU);
-        */
-        Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, timeComeco, timeFinal, dateFinal, matriculaU);
-        AlocacaoDAO dao = new AlocacaoDAO();
-        dao.adicionar(aloc);
-        labelAtualizacao.setText("Alocação Realizada!");
     }
     @FXML public void acaoBuscar(){
         
