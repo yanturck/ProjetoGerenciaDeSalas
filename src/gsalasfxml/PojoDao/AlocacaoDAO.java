@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AlocacaoDAO {
     private Connection connection;
@@ -105,5 +107,22 @@ public class AlocacaoDAO {
         }catch(SQLException u){
             throw new RuntimeException(u);
         }
+    }
+    public List<FrontAlocacao> telaPS(){
+        String sql = "SELECT * FROM ALOCACAO";
+        //String idS = andar.substring(0,1) + i + aux.substring(0,1);
+        List<FrontAlocacao> alocs = new ArrayList<FrontAlocacao>();
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+		FrontAlocacao aloc = new FrontAlocacao(rs.getString("DATAaloc"), rs.getString("DESCRICAO"), rs.getString("DURACAO"));
+		alocs.add(aloc);
+            }
+            stmt.close();
+        }catch(SQLException u){
+            throw new RuntimeException(u);
+        }
+        return alocs;
     }
 }

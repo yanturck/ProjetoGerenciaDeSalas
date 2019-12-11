@@ -1,5 +1,8 @@
 package gsalasfxml;
 
+import gsalasfxml.PojoDao.Alocacao;
+import gsalasfxml.PojoDao.AlocacaoDAO;
+import gsalasfxml.PojoDao.FrontAlocacao;
 import gsalasfxml.TelasCadastros.TelaCadastroAlocacaoFXML;
 import gsalasfxml.TelasCadastros.TelaCadastroSalaFXML;
 import gsalasfxml.TelasCadastros.TelaCadastroUsuarioFXML;
@@ -18,9 +21,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javax.xml.ws.Action;
 
@@ -34,54 +41,9 @@ public class TelaPrincipalController implements Initializable {
     @FXML private Button btnBusca;
     @FXML private Label labelPesquisar;
     
-    @FXML public void acaoBuscar(ActionEvent even){    
+    @FXML public void acaoBuscar(){    
     }
     
-    @FXML private Label labelAsa;
-    @FXML private Label labelAndar;
-    @FXML private ToggleGroup grupoAsa;
-    @FXML private ToggleGroup grupoAndar;
-    
-    @FXML private Button btnS01;
-    @FXML private Button btnS02;
-    @FXML private Button btnS03;
-    @FXML private Button btnS04;
-    @FXML private Button btnS05;
-    @FXML private Button btnS06;
-    @FXML private Button btnS07;
-    @FXML private Button btnS08;
-    @FXML private Button btnS09;
-    @FXML private Button btnS10;
-    @FXML public void acaoBtnS01(ActionEvent even){
-        
-    }
-    @FXML public void acaoBtnS02(ActionEvent even){
-        
-    }
-    @FXML public void acaoBtnS03(ActionEvent even){
-        
-    }
-    @FXML public void acaoBtnS04(ActionEvent even){
-        
-    }
-    @FXML public void acaoBtnS05(ActionEvent even){
-        
-    }
-    @FXML public void acaoBtnS06(ActionEvent even){
-        
-    }
-    @FXML public void acaoBtnS07(ActionEvent even){
-        
-    }
-    @FXML public void acaoBtnS08(ActionEvent even){
-        
-    }
-    @FXML public void acaoBtnS09(ActionEvent even){
-        
-    }
-    @FXML public void acaoBtnS10(ActionEvent even){
-        
-    }
     
     @FXML private ComboBox<Cadastrar> cbCadastrar;
     private List<Cadastrar> cadastros = new ArrayList<>();
@@ -123,16 +85,38 @@ public class TelaPrincipalController implements Initializable {
                 Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        cbCadastrar.getSelectionModel().clearSelection();
     }
+    @FXML private TableView<FrontAlocacao> tableviewAlocacoes;
+    @FXML private TableColumn<FrontAlocacao, String> colunaInicio;
+    @FXML private TableColumn<FrontAlocacao, String> colunaDescricao;
+    @FXML private TableColumn<FrontAlocacao, String> colunaTermino;
     
-    @FXML private TableColumn<?, ?> colunaInicio;
-    @FXML private TableColumn<?, ?> colunaDescricao;
-    @FXML private TableColumn<?, ?> colunaTermino;
+    private List<FrontAlocacao> listAlocs = new ArrayList();
+    private ObservableList<FrontAlocacao> obsAlocs;
+    
+    public void carregarTable(){
+        colunaInicio.setCellValueFactory(new PropertyValueFactory<>("data"));
+        colunaDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        colunaTermino.setCellValueFactory(new PropertyValueFactory<>("dura"));
+        
+        /*RadioButton rAsa = (RadioButton) grupoAsa.getSelectedToggle();
+        RadioButton rAndar = (RadioButton) grupoAndar.getSelectedToggle();
+        String asa = rAsa.getText();
+        String andar = rAndar.getText();*/
+        AlocacaoDAO dao = new AlocacaoDAO();
+        listAlocs = dao.telaPS();
+        obsAlocs = FXCollections.observableArrayList(listAlocs);
+        tableviewAlocacoes.setItems(obsAlocs);
+        
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        carregarComBox();
+       carregarTable();
+       /*btnS01.setOnMouseClicked((MouseEvent e)->{
+       carregarTable("01");
+    });*/
     }    
     
 }
