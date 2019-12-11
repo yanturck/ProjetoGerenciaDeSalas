@@ -2,8 +2,6 @@ package gsalasfxml.TelasCadastros;
 
 import gsalasfxml.PojoDao.Alocacao;
 import gsalasfxml.PojoDao.AlocacaoDAO;
-import gsalasfxml.PojoDao.SalasAlocacoes;
-import gsalasfxml.PojoDao.SalasAlocacoesDAO;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.Time;
@@ -56,10 +54,10 @@ public class TelaCadastroAlocacaoController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       btnLimpar.setOnMouseClicked((MouseEvent e)->{
+      /* btnLimpar.setOnMouseClicked((MouseEvent e)->{
            acaoLimpar(); 
     });
-        /*btnSalvar.setOnMouseClicked((MouseEvent e)->{
+        btnSalvar.setOnMouseClicked((MouseEvent e)->{
             acaoSalvar();
            acaoLimpar();
     });*/
@@ -96,7 +94,7 @@ public class TelaCadastroAlocacaoController implements Initializable {
         if (mesDia== true || duracao.length() != 0){
             aux = true;
         }
-        if ((data.length() != 0) && (matriculaUser.length() != 0) && (aux == true) && (numS.length() !=0 )){
+        if ((data.length() != 0) && (matriculaUser.length() != 0) && (aux == true)){
             return false;
         }else {
             Alertas alerte = new Alertas();
@@ -129,43 +127,40 @@ public class TelaCadastroAlocacaoController implements Initializable {
             String[] horaSeparadas = horasString.split("-");
             int matriculaU = Integer.parseInt(txtMatU.getText());
 
-            Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, (horaSeparadas[0] + ":00"), (horaSeparadas[1] + ":00"), dateFinal, matriculaU);
+            Alocacao aloc = new Alocacao(txtDescr.getText(), dateComeco, (horaSeparadas[0] + ":00"), (horaSeparadas[1] + ":00"), dateFinal, matriculaU, txtNumS.getText());
             AlocacaoDAO dao = new AlocacaoDAO();
             dao.adicionar(aloc);
             int id = dao.idAloc(aloc);
-            if (maisSalas.isSelected() == true){
-                String[] salas = txtNumS.getText().split(",");
-                int quantS = salas.hashCode();
-                while(quantS >= 0){
-                    SalasAlocacoes sa = new SalasAlocacoes(salas[quantS], id);
-                    SalasAlocacoesDAO dao2 = new SalasAlocacoesDAO();
-                    dao2.adicionar(sa);
-                }
-            }else{
-                SalasAlocacoes sa = new SalasAlocacoes(txtNumS.getText(), id);
-                SalasAlocacoesDAO dao2 = new SalasAlocacoesDAO();
-                dao2.adicionar(sa);
-            }
-            labelAtualizacao.setText("Alocação Realizada!\n Protocolo de Alocação " + id);
+            labelAtualizacao.setText("Alocação Realizada!\nProtocolo de Alocação " + id);
+        }else{
+            labelAtualizacao.setText("Alocação não Realizada!\nInforme todos os CAMPOS!");
         }
     }
     @FXML public void acaoBuscar(){
         if (alertaCamposB() == false){
+            String[] dataString = txtData.getText().split("/");
+            String dateComeco = dataString[2] + "-" + dataString[1] + "-" + dataString[0];
+            String dateFinal = dateComeco;
+            if (mesmoDia.isSelected() == true){
+                dateFinal = dateComeco;
+            }else{
+                String[] dataString1 = txtDuracao.getText().split("/");
+                dateFinal = dataString1[2] + "-" + dataString1[1] + "-" + dataString1[0];
+            }
+            
             int idUser = Integer.parseInt(txtMatU.getText());
+            
             AlocacaoDAO dao = new AlocacaoDAO();
-            Alocacao aloc = dao.buscarAloc(txtData.getText(), txtDuracao.getText(), idUser);
-            int idA = dao.idAloc(aloc);
-            SalasAlocacoesDAO dao1 = new SalasAlocacoesDAO();
-            String salas = dao1.buscarSala(idA);
+            Alocacao aloc = dao.buscarAloc(dateComeco, dateFinal, idUser);
             txtDescr.setText(aloc.getDescricao());
-            txtNumS.setText(salas);
+            txtNumS.setText(aloc.getIdSala());
             txtData.setText(aloc.getData());
             txtHorario.setText(aloc.getHora());
             txtDuracao.setText(aloc.getDuracao());
             txtMatU.setText(Integer.toString(aloc.getIdUser()));
             labelAtualizacao.setText("Busca Realizada!");
         }else{
-            labelAtualizacao.setText("Busca não Realizada, informe o Número da Sala, Matricula e Datas de Começo e Termino!");
+            labelAtualizacao.setText("Busca não Realizada, informe a Matricula do Usuario e \nDatas de Começo e Termino do Evento!");
         }
     }
     @FXML public void acaoExcluir(){

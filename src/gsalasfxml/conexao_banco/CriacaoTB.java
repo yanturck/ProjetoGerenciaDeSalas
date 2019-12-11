@@ -40,16 +40,9 @@ public class CriacaoTB {
                 + "TEMPOaloc TIME NOT NULL,"
                 + "DURACAO DATE NOT NULL,"
                 + "idUser INTEGER NOT NULL,"
-                + "foreign key (idUser) references USUARIO(idUSER)"
-                + ");";
-    
-        String sql4 = "CREATE TABLE IF NOT EXISTS SALA_ALOCACAO"
-                + "("
-                + "idSALA INTEGER NOT NULL,"
-                + "idALOCACAO INTEGER NOT NULL,"
-                + "primary key(idSALA, idALOCACAO),"
-                + "foreign key(idSALA) references SALA(idSALA),"
-                + "foreign key(idALOCACAO) references ALOCACAO(idALOCACAO)"
+                + "idSala CHAR(4) NOT NULL,"
+                + "foreign key (idUser) references USUARIO(idUSER),"
+                + "foreign key (idSala) references SALA(idSala)"
                 + ");";
         
         boolean conectou = false;
@@ -59,7 +52,6 @@ public class CriacaoTB {
             stmt.execute(sql1);
             stmt.execute(sql2);
             stmt.execute(sql3);
-            stmt.execute(sql4);
         
             System.out.println("Tabelas criadas!!");
         } catch(SQLException e){

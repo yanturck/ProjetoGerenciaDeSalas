@@ -10,8 +10,9 @@ public class Alocacao {
     private String hora;
     private String tempo;
     private int idUser;
+    private String idSala;
 
-    public Alocacao(String des, String dat, String h, String tmp, String dur, int idUser){
+    public Alocacao(String des, String dat, String h, String tmp, String dur, int idUser, String idS){
         super();
         this.descricao = des;
         this.data = dat;
@@ -19,6 +20,15 @@ public class Alocacao {
         this.hora = h;
         this.tempo = tmp;
         this.idUser = idUser;
+        this.idSala = idS;
+    }
+
+    public void setIdSala(String idSala) {
+        this.idSala = idSala;
+    }
+
+    public String getIdSala() {
+        return idSala;
     }
 
     public int getIdUser() {

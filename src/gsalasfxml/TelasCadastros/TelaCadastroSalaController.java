@@ -43,7 +43,7 @@ public class TelaCadastroSalaController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       btnLimpar.setOnMouseClicked((MouseEvent e)->{
+       /*btnLimpar.setOnMouseClicked((MouseEvent e)->{
        acaoLimpar();
     });
        btnSalvar.setOnMouseClicked((MouseEvent s)->{
@@ -53,7 +53,7 @@ public class TelaCadastroSalaController implements Initializable {
        btnExcluir.setOnMouseClicked((MouseEvent s)->{
        acaoExcluir();
        acaoLimpar();
-    });
+    });*/
     }    
     @FXML public void acaoLimpar(){
         txtNumS.setText("");
@@ -106,6 +106,7 @@ public class TelaCadastroSalaController implements Initializable {
             SalasDAO dao = new SalasDAO();
             dao.adicionar(organizando());
             labelAtualizacao.setText("Salvo com Sucesso!!");
+            acaoLimpar();
         }
     }
     @FXML public void acaoExcluir(){
@@ -126,6 +127,7 @@ public class TelaCadastroSalaController implements Initializable {
                     SalasDAO dao = new SalasDAO();
                     dao.excluir(organizando());
                     labelAtualizacao.setText("Exclusão Realizada!");
+                    acaoLimpar();
                 }else{
                     labelAtualizacao.setText("Operação Cancelada");
                 }

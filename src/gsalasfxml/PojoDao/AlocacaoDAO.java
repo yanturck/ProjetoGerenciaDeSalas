@@ -24,7 +24,7 @@ public class AlocacaoDAO {
     }
     
     public void adicionar(Alocacao aloc){
-        String sql = "INSERT INTO ALOCACAO(DESCRICAO, DATAaloc, HORAaloc, TEMPOaloc, DURACAO, idUser) values (?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO ALOCACAO(DESCRICAO, DATAaloc, HORAaloc, TEMPOaloc, DURACAO, idUser, idSala) values (?, ?, ?, ?, ?, ?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, aloc.getDescricao());
@@ -33,6 +33,7 @@ public class AlocacaoDAO {
             stmt.setString(4, aloc.getTempo());
             stmt.setString(5, aloc.getDuracao());
             stmt.setInt(6, aloc.getIdUser());
+            stmt.setString(5, aloc.getIdSala());
             stmt.execute();
             stmt.close();
         }catch(SQLException u){
@@ -66,7 +67,7 @@ public class AlocacaoDAO {
             stmt.setString(2, dura);
             stmt.setInt(3, idUser);
             ResultSet rs = stmt.executeQuery();
-            Alocacao aloc = new Alocacao(rs.getString("DESCRICAO"), dia, rs.getString("HORAaloc"), rs.getString("TEMPOaloc"), dura, idUser);
+            Alocacao aloc = new Alocacao(rs.getString("DESCRICAO"), dia, rs.getString("HORAaloc"), rs.getString("TEMPOaloc"), dura, idUser, rs.getString("idSala"));
             stmt.close();
             return aloc;
         }catch(SQLException e){
