@@ -110,7 +110,6 @@ public class TelaPrincipalController implements Initializable {
             }
         }else if (cadastrar.getObjt().equals("Usuário")){
             TelaCadastroUsuarioFXML u = new TelaCadastroUsuarioFXML();
-            
             try {
                 u.start(new Stage());
             } catch (Exception ex) {
@@ -118,13 +117,13 @@ public class TelaPrincipalController implements Initializable {
             }
         }else if (cadastrar.getObjt().equals("Alocação")){
             TelaCadastroAlocacaoFXML a = new TelaCadastroAlocacaoFXML();
-            
             try {
                 a.start(new Stage());
             } catch (Exception ex) {
                 Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        cbCadastrar.getSelectionModel().clearSelection();
     }
     
     @FXML private TableColumn<?, ?> colunaInicio;

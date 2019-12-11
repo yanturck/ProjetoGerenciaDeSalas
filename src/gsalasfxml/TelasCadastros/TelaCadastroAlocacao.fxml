@@ -18,11 +18,6 @@
             <TextField fx:id="txtDescr" />
             <Label fx:id="labelMatU" text="Matrícula Usuário:" />
             <TextField fx:id="txtMatU" />
-            <RadioButton fx:id="maisSalas" mnemonicParsing="false" text="Mais de uma Sala?">
-               <toggleGroup>
-                  <ToggleGroup fx:id="grupoMaisS" />
-               </toggleGroup>
-            </RadioButton>
             <Label fx:id="labelNumS" text="Número da Sala e Asa (Ex: 105N):" />
             <TextField fx:id="txtNumS" />
             <Label fx:id="labelData" text="Data (dd/mm/ano):" />

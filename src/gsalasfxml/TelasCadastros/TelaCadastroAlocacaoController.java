@@ -16,7 +16,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -48,19 +51,10 @@ public class TelaCadastroAlocacaoController implements Initializable {
     @FXML private TextField txtDuracao;
     @FXML private TextField txtMatU;
     @FXML private ToggleGroup grupoMesmoD;
-    @FXML private ToggleGroup grupoMaisS;
-    @FXML private RadioButton maisSalas;
     @FXML private RadioButton mesmoDia;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      /* btnLimpar.setOnMouseClicked((MouseEvent e)->{
-           acaoLimpar(); 
-    });
-        btnSalvar.setOnMouseClicked((MouseEvent e)->{
-            acaoSalvar();
-           acaoLimpar();
-    });*/
     }    
     
     public boolean alertaCampos(){
@@ -101,6 +95,7 @@ public class TelaCadastroAlocacaoController implements Initializable {
             return alerte.camposFaltante();
         }
     }
+    
     @FXML public void acaoLimpar(){
         txtDescr.setText("");
         txtNumS.setText("");
@@ -108,7 +103,6 @@ public class TelaCadastroAlocacaoController implements Initializable {
         txtHorario.setText("");
         txtDuracao.setText("");
         txtMatU.setText("");
-        maisSalas.setSelected(false);
         mesmoDia.setSelected(false);
     }
     @FXML public void acaoSalvar(){
@@ -132,6 +126,7 @@ public class TelaCadastroAlocacaoController implements Initializable {
             dao.adicionar(aloc);
             int id = dao.idAloc(aloc);
             labelAtualizacao.setText("Alocação Realizada!\nProtocolo de Alocação " + id);
+            acaoLimpar();
         }else{
             labelAtualizacao.setText("Alocação não Realizada!\nInforme todos os CAMPOS!");
         }
@@ -164,7 +159,35 @@ public class TelaCadastroAlocacaoController implements Initializable {
         }
     }
     @FXML public void acaoExcluir(){
-        
+        if (alertaCamposB() == false){
+            Alert confirmarExcluir = new Alert(Alert.AlertType.CONFIRMATION);
+            ButtonType btnOk = new ButtonType("OK");
+            ButtonType btnCan = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+            
+            confirmarExcluir.setTitle("CONFIRMAÇÃO");
+            confirmarExcluir.setHeaderText("CONFIRMAR EXCLUSÃO");
+            confirmarExcluir.setContentText("Tem certeza que deseja excluir?");
+            
+            confirmarExcluir.getButtonTypes().setAll(btnOk, btnCan);
+            confirmarExcluir.showAndWait().ifPresent(b -> {
+                if (b == btnOk){
+                    String[] dataString = txtData.getText().split("/");
+                    String dateComeco = dataString[2] + "-" + dataString[1] + "-" + dataString[0];
+                    String dateFinal = dateComeco;
+                    String[] dataString1 = txtDuracao.getText().split("/");
+                    dateFinal = dataString1[2] + "-" + dataString1[1] + "-" + dataString1[0];
+
+                    int idUser = Integer.parseInt(txtMatU.getText());
+
+                    AlocacaoDAO dao = new AlocacaoDAO();
+                    dao.excluir(dateComeco, dateFinal, idUser);
+                    labelAtualizacao.setText("Exclusão Realizada!!");
+                }else{
+                    labelAtualizacao.setText("Operação Cancelada");
+                }});
+        }else{
+            labelAtualizacao.setText("Exclusão não Realizada!\nInforme TODOS os campos");
+        }   
     }
     @FXML public void acaoAtualizar(){
         

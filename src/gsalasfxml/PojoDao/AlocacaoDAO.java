@@ -33,7 +33,7 @@ public class AlocacaoDAO {
             stmt.setString(4, aloc.getTempo());
             stmt.setString(5, aloc.getDuracao());
             stmt.setInt(6, aloc.getIdUser());
-            stmt.setString(5, aloc.getIdSala());
+            stmt.setString(7, aloc.getIdSala());
             stmt.execute();
             stmt.close();
         }catch(SQLException u){
@@ -60,7 +60,7 @@ public class AlocacaoDAO {
         return idAloc;
     }
     public Alocacao buscarAloc(String dia, String dura, int idUser){
-        String sql = "SELECT DESCRICAO, HORAaloc, TEMPOaloc FROM ALOCACAO WHERE DATAaloc = ? AND DURACAO = ? AND idUser = ?;";
+        String sql = "SELECT DESCRICAO, HORAaloc, TEMPOaloc, idSala FROM ALOCACAO WHERE DATAaloc = ? AND DURACAO = ? AND idUser = ?;";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1, dia);
@@ -74,10 +74,36 @@ public class AlocacaoDAO {
             throw new RuntimeException(e);
         }
     }
-    public void excluir(int idAloc){
-        
+    public void excluir(String dia, String dura, int idUser){
+        String sql = "DELETE FROM ALOCACAO WHERE DATAaloc = ? AND DURACAO = ? AND idUser = ?;";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, dia);
+            stmt.setString(2, dura);
+            stmt.setInt(3, idUser);
+            stmt.execute();
+            stmt.close();
+        }catch(SQLException u){
+            throw new RuntimeException(u);
+        }
     }
-    public void atualizar(int idAloc){
-        
+    
+    public void atualizar(int idAloc, Alocacao aloc){
+        String sql = "UPDATE ALOCACAO SET DESCRICAO = ?, DATAaloc = ?, HORAaloc = ?, TEMPOaloc = ?, DURACAO = ?, idUser = ?, idSala = ? WHERE idALOCACAO = ?;";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, aloc.getDescricao());
+            stmt.setString(2, aloc.getData()); 
+            stmt.setString(3, aloc.getHora()); 
+            stmt.setString(4, aloc.getTempo());
+            stmt.setString(5, aloc.getDuracao());
+            stmt.setInt(6, aloc.getIdUser());
+            stmt.setString(7, aloc.getIdSala());
+            stmt.setInt(8, idAloc);
+            stmt.execute();
+            stmt.close();
+        }catch(SQLException u){
+            throw new RuntimeException(u);
+        }
     }
 }
