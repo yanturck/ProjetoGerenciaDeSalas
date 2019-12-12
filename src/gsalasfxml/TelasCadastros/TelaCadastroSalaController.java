@@ -103,14 +103,12 @@ public class TelaCadastroSalaController implements Initializable {
     @FXML public void acaoSalvar(){
         if (alertas() == false){
             SalasDAO dao = new SalasDAO();
-            Sala sala = organizando();
-            if (dao.existe(sala.getIdSala()) == true){
-                Alertas alert = new Alertas();
-                alert.idExistente();
-            }else{
-                dao.adicionar(sala);
+            if (dao.adicionar(organizando()) == true){
                 labelAtualizacao.setText("Salvo com Sucesso!!");
                 acaoLimpar();
+            }else{
+                Alertas alert = new Alertas();
+                alert.idExistente();
             }
         }
     }

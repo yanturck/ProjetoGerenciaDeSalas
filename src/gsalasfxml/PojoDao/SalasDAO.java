@@ -20,7 +20,7 @@ public class SalasDAO {
         }
     }
     
-    public void adicionar(Sala sala){
+    public boolean adicionar(Sala sala){
         String sql = "INSERT INTO SALA(idSALA, ANDAR, TIPOsala) values (?, ?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -29,8 +29,9 @@ public class SalasDAO {
             stmt.setString(3, sala.getTipoSala());
             stmt.execute();
             stmt.close();
+            return true;
         }catch(SQLException u){
-            throw new RuntimeException(u);
+            return false;
         }
     }
    public void excluir(Sala sala){
@@ -46,7 +47,7 @@ public class SalasDAO {
             throw new RuntimeException(u);
         }
    }
-   public boolean existe(String idSala){
+   /*public boolean existe(String idSala){
        String sql = "SELECT * SALA WHERE idSALA = ?;";
        String tipo;
        try{
@@ -59,5 +60,5 @@ public class SalasDAO {
        }catch(SQLException u){
             return true;
        }
-   }
+   }*/
 }
