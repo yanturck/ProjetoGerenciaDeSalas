@@ -20,7 +20,7 @@ public class UsuariosDAO {
         }
     }
     
-    public void adicionar(Usuario user){
+    public boolean adicionar(Usuario user){
         String sql = "INSERT INTO USUARIO(idUSER, NOME, TIPOuser, CURSO, TELEFONE) values (?, ?, ?, ?, ?);";
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
@@ -31,8 +31,9 @@ public class UsuariosDAO {
             stmt.setString(5, user.getTelefone());
             stmt.execute();
             stmt.close();
+            return true;
         }catch(SQLException u){
-            throw new RuntimeException(u);
+            return false;
         }
     }
     public Usuario buscar(int idUser){

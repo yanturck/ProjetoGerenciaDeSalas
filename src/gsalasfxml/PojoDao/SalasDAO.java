@@ -47,18 +47,4 @@ public class SalasDAO {
             throw new RuntimeException(u);
         }
    }
-   /*public boolean existe(String idSala){
-       String sql = "SELECT * SALA WHERE idSALA = ?;";
-       String tipo;
-       try{
-           PreparedStatement stmt = connection.prepareStatement(sql);
-           stmt.setString(1, idSala);
-           ResultSet rs = stmt.executeQuery();
-           tipo = rs.getString("TIPOsala");
-           stmt.close();
-           return false;
-       }catch(SQLException u){
-            return true;
-       }
-   }*/
 }

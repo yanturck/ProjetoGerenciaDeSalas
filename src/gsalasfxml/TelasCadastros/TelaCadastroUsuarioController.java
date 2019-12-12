@@ -74,9 +74,13 @@ public class TelaCadastroUsuarioController implements Initializable {
             int idUser = Integer.parseInt(txtId.getText());
             Usuario user = new Usuario(idUser, txtNome.getText(), txtTipoU.getText(), txtCurso.getText(), txtTelefone.getText());
             UsuariosDAO dao = new UsuariosDAO();
-            dao.adicionar(user);
-            labelAtualizacao.setText("Salvo com Sucesso!!");
-            acaoLimpar();
+            if (dao.adicionar(user) == true){
+                labelAtualizacao.setText("Salvo com Sucesso!!");
+                acaoLimpar();
+            }else{
+                Alertas alert = new Alertas();
+                alert.idExistente();
+            }
          }
      }
      public boolean alertaCamposB(){
