@@ -11,7 +11,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gsalasfxml.TelasCadastros.TelaCadastroAlocacaoController">
    <children>
       <Button fx:id="btnSalvar" layoutX="254.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoSalvar" text="Salvar" />
-      <Button fx:id="btnLimpar" layoutX="201.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoLimpar" text="Limpar" />
+      <Button fx:id="btnLimpar" layoutX="188.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoLimpar" text="Limpar" />
       <VBox layoutX="14.0" layoutY="14.0" prefHeight="286.0" prefWidth="227.0">
          <children>
             <Label fx:id="labelDescr" text="Descrição:" />
@@ -33,9 +33,6 @@
             <TextField fx:id="txtDuracao" />
          </children>
       </VBox>
-      <Button fx:id="btnExcluir" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoExcluir" text="Excluir" />
-      <Button fx:id="btnBuscar" layoutX="70.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoBuscar" text="Buscar" />
       <Label fx:id="labelAtualizacao" layoutX="14.0" layoutY="326.0" />
-      <Button fx:id="btnAtualizar" layoutX="129.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoAtualizar" text="Atualizar" />
    </children>
 </Pane>

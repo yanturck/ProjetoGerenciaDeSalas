@@ -34,9 +34,6 @@ import javafx.scene.input.MouseEvent;
 public class TelaCadastroAlocacaoController implements Initializable {
     @FXML private Button btnLimpar;
     @FXML private Button btnSalvar;
-    @FXML private Button btnBuscar;
-    @FXML private Button btnExcluir;
-    @FXML private Button btnAtualizar;
     @FXML private Label labelDescr;
     @FXML private Label labelNumS;
     @FXML private Label labelData;

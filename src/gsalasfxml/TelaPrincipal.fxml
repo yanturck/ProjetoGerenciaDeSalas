@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gsalasfxml.TelaPrincipalController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gsalasfxml.TelaPrincipalController">
    <children>
-      <VBox layoutX="384.0" layoutY="14.0" prefHeight="42.0" prefWidth="202.0">
+      <VBox layoutX="566.0" layoutY="14.0" prefHeight="42.0" prefWidth="202.0">
          <children>
             <HBox prefHeight="26.0" prefWidth="202.0">
                <children>
@@ -28,19 +28,16 @@
             </Label>
          </children>
       </VBox>
-      <TableView fx:id="tableviewAlocacoes" layoutX="15.0" layoutY="87.0" prefHeight="305.0" prefWidth="571.0">
+      <TableView fx:id="tableviewAlocacoes" layoutX="15.0" layoutY="56.0" prefHeight="391.0" prefWidth="755.0">
         <columns>
-          <TableColumn fx:id="colunaInicio" prefWidth="100.0" text="Início" />
-          <TableColumn fx:id="colunaDescricao" prefWidth="377.0" text="Descrição" />
-            <TableColumn fx:id="colunaTermino" minWidth="0.0" prefWidth="92.0" text="Término" />
+          <TableColumn fx:id="colunaInicio" prefWidth="110.0" text="Início" />
+            <TableColumn fx:id="colunaInicio1" prefWidth="100.0" text="Horario" />
+          <TableColumn fx:id="colunaDescricao" prefWidth="440.0" text="Descrição" />
+            <TableColumn fx:id="colunaTermino" minWidth="0.0" prefWidth="105.0" text="Término" />
         </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
       </TableView>
       <ComboBox fx:id="cbCadastrar" layoutX="15.0" layoutY="14.0" onAction="#pegar" prefHeight="25.0" prefWidth="128.0" promptText="Cadastrar/Editar" />
-      <Button fx:id="bntListarSalas" layoutX="180.0" layoutY="56.0" mnemonicParsing="false" text="Salas" />
-      <Button fx:id="btnListarEventos" layoutX="274.0" layoutY="56.0" mnemonicParsing="false" text="Eventos" />
-      <Button fx:id="btnListarUser" layoutX="384.0" layoutY="56.0" mnemonicParsing="false" text="Usuários" />
+      <Button fx:id="bntEditar" layoutX="722.0" layoutY="458.0" mnemonicParsing="false" text="Editar" />
+      <Button fx:id="btnExcluir" layoutX="656.0" layoutY="458.0" mnemonicParsing="false" text="Excluir" />
    </children>
 </Pane>

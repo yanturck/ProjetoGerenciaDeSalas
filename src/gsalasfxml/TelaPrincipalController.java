@@ -49,9 +49,9 @@ public class TelaPrincipalController implements Initializable {
     private List<Cadastrar> cadastros = new ArrayList<>();
     private ObservableList<Cadastrar> obsCadastro;
     
-    @FXML private Button bntListarSalas;
-    @FXML private Button btnListarEventos;
-    @FXML private Button btnListarUser;
+    @FXML private Button bntEditar;
+    @FXML private Button btnExcluir;
+    //@FXML private Button btnAtualizar;
     
     public void carregarComBox(){
         Cadastrar cadastro1 = new Cadastrar("Sala");
