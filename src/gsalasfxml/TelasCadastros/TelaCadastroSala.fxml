@@ -7,19 +7,20 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gsalasfxml.TelasCadastros.TelaCadastroSalaController">
    <children>
       <Button fx:id="btnLimpar" layoutX="134.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoLimpar" text="Limpar" />
       <Button fx:id="btnSalvar" layoutX="254.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoSalvar" text="Salvar" />
       <Button fx:id="btnExcluir" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoExcluir" text="Excluir" />
-      <VBox layoutX="14.0" layoutY="14.0" prefHeight="250.0" prefWidth="152.0">
+      <VBox layoutX="14.0" layoutY="14.0" prefHeight="156.0" prefWidth="152.0">
          <children>
-            <Label fx:id="labelNumS" text="Número da Sala:" />
+            <Label fx:id="labelNumS" text="Número da Sala*:" />
             <TextField fx:id="txtNumS" />
             <VBox prefHeight="56.0" prefWidth="88.0">
                <children>
-                  <Label fx:id="labelAsa" text="Asa:" />
+                  <Label fx:id="labelAsa" text="Asa*:" />
                   <RadioButton fx:id="rbNorte" mnemonicParsing="false" text="Norte">
                      <toggleGroup>
                         <ToggleGroup fx:id="grupoAsa" />
@@ -28,7 +29,7 @@
                   <RadioButton fx:id="rbSul" mnemonicParsing="false" text="Sul" toggleGroup="$grupoAsa" />
                </children>
             </VBox>
-            <Label fx:id="labelTipoS" text="Tipo de Sala:" />
+            <Label fx:id="labelTipoS" text="Tipo de Sala*:" />
             <RadioButton fx:id="rbComum" mnemonicParsing="false" text="Comum">
                <toggleGroup>
                   <ToggleGroup fx:id="grupoTipoS" />
@@ -38,5 +39,10 @@
          </children>
       </VBox>
       <Label fx:id="labelAtualizacao" layoutX="14.0" layoutY="328.0" />
+      <Label fx:id="labelCamposObrigatorios" layoutX="14.0" layoutY="170.0" text="*Campos Obrigátorios.">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

@@ -16,6 +16,7 @@ public class TelaCadastroAlocacaoFXML extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setTitle("Casdastrar/Editar Alocações");
         stage.show();
     }
 

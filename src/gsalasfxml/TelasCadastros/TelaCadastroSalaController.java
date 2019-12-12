@@ -33,6 +33,7 @@ public class TelaCadastroSalaController implements Initializable {
     @FXML private Label labelNumS;
     @FXML private Label labelTipoS;
     @FXML private Label labelAsa;
+    @FXML private Label labelCamposObrigatorios;
     @FXML private Label labelAtualizacao;
     @FXML private ToggleGroup grupoTipoS;
     @FXML private ToggleGroup grupoAsa;
@@ -84,10 +85,9 @@ public class TelaCadastroSalaController implements Initializable {
     }
     public Sala organizando(){
         String idSala;
-        RadioButton rAsa = (RadioButton) grupoAsa.getSelectedToggle();
-        if(rAsa.getText() == "Sul"){
+        if(rbSul.isSelected() == true){
             idSala = txtNumS.getText() + "S";
-        }else{
+        }else {
             idSala = txtNumS.getText() + "N";
         }
         String tmp = txtNumS.getText();
@@ -101,17 +101,23 @@ public class TelaCadastroSalaController implements Initializable {
     }
     
     @FXML public void acaoSalvar(){
-        boolean aux = alertas();
-        if (aux == false){
+        if (alertas() == false){
             SalasDAO dao = new SalasDAO();
-            dao.adicionar(organizando());
-            labelAtualizacao.setText("Salvo com Sucesso!!");
-            acaoLimpar();
+            Sala sala = organizando();
+            if (dao.existe(sala.getIdSala()) == true){
+                Alertas alert = new Alertas();
+                alert.idExistente();
+            }else{
+                dao.adicionar(sala);
+                labelAtualizacao.setText("Salvo com Sucesso!!");
+                acaoLimpar();
+            }
         }
     }
     @FXML public void acaoExcluir(){
         boolean aux1 = alertas();
         if (aux1 == false){
+            RadioButton rAsa = (RadioButton) grupoAsa.getSelectedToggle();
             
             Alert confirmarExcluir = new Alert(Alert.AlertType.CONFIRMATION);
             ButtonType btnOk = new ButtonType("OK");
@@ -119,7 +125,7 @@ public class TelaCadastroSalaController implements Initializable {
             
             confirmarExcluir.setTitle("CONFIRMAÇÃO");
             confirmarExcluir.setHeaderText("CONFIRMAR EXCLUSÃO");
-            confirmarExcluir.setContentText("Tem certeza que deseja excluir?");
+            confirmarExcluir.setContentText("Tem certeza que deseja excluir?\n" + txtNumS.getText() + "-" + rAsa.getText());
             
             confirmarExcluir.getButtonTypes().setAll(btnOk, btnCan);
             confirmarExcluir.showAndWait().ifPresent(b -> {

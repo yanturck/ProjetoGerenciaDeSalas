@@ -16,6 +16,7 @@ public class TelaCadastroUsuarioFXML extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setTitle("Cadastrar/Editar Usuários");
         stage.show();
     }
 

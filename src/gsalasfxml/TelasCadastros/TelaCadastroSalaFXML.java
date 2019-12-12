@@ -16,6 +16,7 @@ public class TelaCadastroSalaFXML extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setTitle("Cadastrar/Editar Salas");
         stage.show();
     }
 

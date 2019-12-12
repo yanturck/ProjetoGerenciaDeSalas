@@ -20,12 +20,11 @@ public class Alertas {
         return true;
     }
     
-    public boolean idExistente(String u){
+    public void idExistente(){
         Alert camposFalta = new Alert(Alert.AlertType.ERROR);
         camposFalta.setTitle("ERRO");
-        camposFalta.setHeaderText(u);
+        camposFalta.setHeaderText("ID já existente");
         camposFalta.setContentText("Por favor digite uma Matricula ou Sala que não exista!");
         camposFalta.show();
-        return true;
     }
 }
