@@ -28,8 +28,7 @@
             </Label>
          </children>
       </VBox>
-      <HBox layoutX="14.0" layoutY="56.0" prefHeight="99.0" prefWidth="202.0" />
-      <TableView fx:id="tableviewAlocacoes" layoutX="15.0" layoutY="57.0" prefHeight="335.0" prefWidth="571.0">
+      <TableView fx:id="tableviewAlocacoes" layoutX="15.0" layoutY="87.0" prefHeight="305.0" prefWidth="571.0">
         <columns>
           <TableColumn fx:id="colunaInicio" prefWidth="100.0" text="Início" />
           <TableColumn fx:id="colunaDescricao" prefWidth="377.0" text="Descrição" />
@@ -40,5 +39,8 @@
          </columnResizePolicy>
       </TableView>
       <ComboBox fx:id="cbCadastrar" layoutX="15.0" layoutY="14.0" onAction="#pegar" prefHeight="25.0" prefWidth="128.0" promptText="Cadastrar/Editar" />
+      <Button fx:id="bntListarSalas" layoutX="180.0" layoutY="56.0" mnemonicParsing="false" text="Salas" />
+      <Button fx:id="btnListarEventos" layoutX="274.0" layoutY="56.0" mnemonicParsing="false" text="Eventos" />
+      <Button fx:id="btnListarUser" layoutX="384.0" layoutY="56.0" mnemonicParsing="false" text="Usuários" />
    </children>
 </Pane>
