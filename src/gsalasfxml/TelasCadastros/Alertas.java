@@ -27,4 +27,11 @@ public class Alertas {
         camposFalta.setContentText("Por favor digite uma Matricula ou Sala que não exista!");
         camposFalta.show();
     }
+    public void idNExistente(){
+        Alert camposFalta = new Alert(Alert.AlertType.ERROR);
+        camposFalta.setTitle("ERRO");
+        camposFalta.setHeaderText("Matricula não existente");
+        camposFalta.setContentText("Por favor digite uma Matricula que exista!");
+        camposFalta.show();
+    }
 }

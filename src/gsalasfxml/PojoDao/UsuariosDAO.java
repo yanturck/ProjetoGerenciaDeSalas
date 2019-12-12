@@ -36,6 +36,19 @@ public class UsuariosDAO {
             return false;
         }
     }
+    public boolean conExiste(int idUser){
+        String sql = "SELECT * FROM USUARIO WHERE idUSER = ?;";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idUser);
+            ResultSet rs = stmt.executeQuery();
+            Usuario user = new Usuario(rs.getInt("idUSER"), rs.getString("NOME"), rs.getString("TIPOuser"), rs.getString("CURSO"), rs.getString("TELEFONE"));
+            stmt.close();
+            return true;
+        }catch(SQLException e){
+            return false;
+        }
+    }
     public Usuario buscar(int idUser){
         String sql = "SELECT * FROM USUARIO WHERE idUSER = ?;";
         try{

@@ -98,13 +98,18 @@ public class TelaCadastroUsuarioController implements Initializable {
          boolean busca = alertaCamposB();
          if(busca == false){
              UsuariosDAO dao = new UsuariosDAO();
-             Usuario user = dao.buscar(Integer.parseInt(txtId.getText()));
-             txtNome.setText(user.getNome());
-             txtId.setText(Integer.toString(user.getIdUsuario()));
-             txtTipoU.setText(user.getTipoUsuario());
-             txtCurso.setText(user.getCurso());
-             txtTelefone.setText(user.getTelefone());
-             labelAtualizacao.setText("Busca realizada!");
+             if (dao.conExiste(Integer.parseInt(txtId.getText())) == true){
+                Usuario user = dao.buscar(Integer.parseInt(txtId.getText()));
+                txtNome.setText(user.getNome());
+                txtId.setText(Integer.toString(user.getIdUsuario()));
+                txtTipoU.setText(user.getTipoUsuario());
+                txtCurso.setText(user.getCurso());
+                txtTelefone.setText(user.getTelefone());
+                labelAtualizacao.setText("Busca realizada!");
+             }else{
+                 Alertas a = new Alertas();
+                 a.idNExistente();
+             }
          } else{
              labelAtualizacao.setText("Busca não Realizada, informe a MATRICULA!");
          }
