@@ -61,28 +61,45 @@ public class AlocacaoDAO {
         }
         return idAloc;
     }
-    public Alocacao buscarAloc(String dia, String dura, int idUser){
-        String sql = "SELECT DESCRICAO, HORAaloc, TEMPOaloc, idSala FROM ALOCACAO WHERE DATAaloc = ? AND DURACAO = ? AND idUser = ?;";
+    public List<Alocacao> buscarAloc(int idUser){
+        String sql = "SELECT * FROM ALOCACAO WHERE idUser = ?;";
+        List<Alocacao> alocs = new ArrayList<Alocacao>();
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, dia);
-            stmt.setString(2, dura);
-            stmt.setInt(3, idUser);
+            stmt.setInt(1, idUser);
             ResultSet rs = stmt.executeQuery();
-            Alocacao aloc = new Alocacao(rs.getString("DESCRICAO"), dia, rs.getString("HORAaloc"), rs.getString("TEMPOaloc"), dura, idUser, rs.getString("idSala"));
+            while (rs.next()) {
+                Alocacao aloc = new Alocacao(rs.getString("DESCRICAO"), rs.getString("DATAaloc"), rs.getString("HORAaloc"), rs.getString("TEMPOaloc"), rs.getString("DURACAO"), rs.getInt("idUser"), rs.getString("idSala"));
+                alocs.add(aloc);
+            }
             stmt.close();
-            return aloc;
         }catch(SQLException e){
             throw new RuntimeException(e);
         }
+        return alocs;
     }
-    public void excluir(String dia, String dura, int idUser){
-        String sql = "DELETE FROM ALOCACAO WHERE DATAaloc = ? AND DURACAO = ? AND idUser = ?;";
+    public boolean existeBusca(int idUser){
+        String sql = "SELECT * FROM ALOCACAO WHERE idUser = ?;";
+        List<Alocacao> alocs = new ArrayList<Alocacao>();
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, dia);
-            stmt.setString(2, dura);
-            stmt.setInt(3, idUser);
+            stmt.setInt(1, idUser);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Alocacao aloc = new Alocacao(rs.getString("DESCRICAO"), rs.getString("DATAaloc"), rs.getString("HORAaloc"), rs.getString("TEMPOaloc"), rs.getString("DURACAO"), rs.getInt("idUser"), rs.getString("idSala"));
+                alocs.add(aloc);
+            }
+            stmt.close();
+            return true;
+        }catch(SQLException e){
+            return false;
+        }
+    }
+    public void excluir(int idAloc){
+        String sql = "DELETE FROM ALOCACAO WHERE idALOCACAO = ?;";
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, idAloc);
             stmt.execute();
             stmt.close();
         }catch(SQLException u){
@@ -90,33 +107,15 @@ public class AlocacaoDAO {
         }
     }
     
-    public void atualizar(int idAloc, Alocacao aloc){
-        String sql = "UPDATE ALOCACAO SET DESCRICAO = ?, DATAaloc = ?, HORAaloc = ?, TEMPOaloc = ?, DURACAO = ?, idUser = ?, idSala = ? WHERE idALOCACAO = ?;";
-        try{
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, aloc.getDescricao());
-            stmt.setString(2, aloc.getData()); 
-            stmt.setString(3, aloc.getHora()); 
-            stmt.setString(4, aloc.getTempo());
-            stmt.setString(5, aloc.getDuracao());
-            stmt.setInt(6, aloc.getIdUser());
-            stmt.setString(7, aloc.getIdSala());
-            stmt.setInt(8, idAloc);
-            stmt.execute();
-            stmt.close();
-        }catch(SQLException u){
-            throw new RuntimeException(u);
-        }
-    }
-    public List<FrontAlocacao> telaPS(){
+    public List<Alocacao> buscaGeral(){
         String sql = "SELECT * FROM ALOCACAO";
         //String idS = andar.substring(0,1) + i + aux.substring(0,1);
-        List<FrontAlocacao> alocs = new ArrayList<FrontAlocacao>();
+        List<Alocacao> alocs = new ArrayList<Alocacao>();
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-		FrontAlocacao aloc = new FrontAlocacao(rs.getString("DATAaloc"), rs.getString("DESCRICAO"), rs.getString("DURACAO"));
+		Alocacao aloc = new Alocacao(rs.getString("DESCRICAO"), rs.getString("DATAaloc"), rs.getString("HORAaloc"), rs.getString("TEMPOaloc"), rs.getString("DURACAO"), rs.getInt("idUser"), rs.getString("idSala"));
 		alocs.add(aloc);
             }
             stmt.close();

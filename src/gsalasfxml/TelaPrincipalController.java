@@ -2,7 +2,7 @@ package gsalasfxml;
 
 import gsalasfxml.PojoDao.Alocacao;
 import gsalasfxml.PojoDao.AlocacaoDAO;
-import gsalasfxml.PojoDao.FrontAlocacao;
+import gsalasfxml.PojoDao.UsuariosDAO;
 import gsalasfxml.TelasCadastros.TelaCadastroAlocacaoFXML;
 import gsalasfxml.TelasCadastros.TelaCadastroSalaFXML;
 import gsalasfxml.TelasCadastros.TelaCadastroUsuarioFXML;
@@ -18,7 +18,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -41,7 +44,8 @@ public class TelaPrincipalController implements Initializable {
     @FXML private Button btnBusca;
     @FXML private Label labelPesquisar;
     
-    @FXML public void acaoBuscar(){    
+    @FXML public void acaoBuscar(){
+        
     }
     
     
@@ -49,9 +53,7 @@ public class TelaPrincipalController implements Initializable {
     private List<Cadastrar> cadastros = new ArrayList<>();
     private ObservableList<Cadastrar> obsCadastro;
     
-    @FXML private Button bntEditar;
     @FXML private Button btnExcluir;
-    //@FXML private Button btnAtualizar;
     
     public void carregarComBox(){
         Cadastrar cadastro1 = new Cadastrar("Sala");
@@ -91,25 +93,31 @@ public class TelaPrincipalController implements Initializable {
         }
         cbCadastrar.getSelectionModel().clearSelection();
     }
-    @FXML private TableView<FrontAlocacao> tableviewAlocacoes;
-    @FXML private TableColumn<FrontAlocacao, String> colunaInicio;
-    @FXML private TableColumn<FrontAlocacao, String> colunaDescricao;
-    @FXML private TableColumn<FrontAlocacao, String> colunaTermino;
+    @FXML private TableView<Alocacao> tableviewAlocacoes;
+    @FXML private TableColumn<Alocacao, String> colunaInicio;
+    @FXML private TableColumn<Alocacao, String> colunaDescricao;
+    @FXML private TableColumn<Alocacao, String> colunaTermino;
+    @FXML private TableColumn<Alocacao, String> colunaHorario;
+    @FXML private TableColumn<Alocacao, String> colunaSala;
+    @FXML private TableColumn<Alocacao, String> colunaDuracao;
     
-    private List<FrontAlocacao> listAlocs = new ArrayList();
-    private ObservableList<FrontAlocacao> obsAlocs;
+    private List<Alocacao> listAlocs = new ArrayList();
+    private ObservableList<Alocacao> obsAlocs;
     
     public void carregarTable(){
         colunaInicio.setCellValueFactory(new PropertyValueFactory<>("data"));
         colunaDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
-        colunaTermino.setCellValueFactory(new PropertyValueFactory<>("dura"));
+        colunaTermino.setCellValueFactory(new PropertyValueFactory<>("tempo"));
+        colunaHorario.setCellValueFactory(new PropertyValueFactory<>("hora"));
+        colunaSala.setCellValueFactory(new PropertyValueFactory<>("idSala"));
+        colunaDuracao.setCellValueFactory(new PropertyValueFactory<>("duracao"));
         
         /*RadioButton rAsa = (RadioButton) grupoAsa.getSelectedToggle();
         RadioButton rAndar = (RadioButton) grupoAndar.getSelectedToggle();
         String asa = rAsa.getText();
         String andar = rAndar.getText();*/
         AlocacaoDAO dao = new AlocacaoDAO();
-        listAlocs = dao.telaPS();
+        listAlocs = dao.buscaGeral();
         obsAlocs = FXCollections.observableArrayList(listAlocs);
         tableviewAlocacoes.setItems(obsAlocs);
         
@@ -119,9 +127,25 @@ public class TelaPrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
        carregarComBox();
        carregarTable();
-       /*btnS01.setOnMouseClicked((MouseEvent e)->{
-       carregarTable("01");
-    });*/
     }    
-    
+    @FXML  public void acaoExcluir(){
+        Alert confirmarExcluir = new Alert(Alert.AlertType.CONFIRMATION);
+        ButtonType btnOk = new ButtonType("OK");
+        ButtonType btnCan = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+            
+        confirmarExcluir.setTitle("CONFIRMAÇÃO");
+        confirmarExcluir.setHeaderText("CONFIRMAR EXCLUSÃO");
+        confirmarExcluir.setContentText("Tem certeza que deseja excluir?");
+            
+        confirmarExcluir.getButtonTypes().setAll(btnOk, btnCan);
+        confirmarExcluir.showAndWait().ifPresent(b -> {
+            if (b == btnOk){
+                Alocacao aloc = tableviewAlocacoes.getSelectionModel().getSelectedItem();
+                tableviewAlocacoes.getItems().remove(aloc);
+                AlocacaoDAO dao = new AlocacaoDAO();
+                int id = dao.idAloc(aloc);
+                dao.excluir(id);
+            }
+        });
+    }
 }

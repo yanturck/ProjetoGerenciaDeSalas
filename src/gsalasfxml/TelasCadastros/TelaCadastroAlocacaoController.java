@@ -128,7 +128,7 @@ public class TelaCadastroAlocacaoController implements Initializable {
             labelAtualizacao.setText("Alocação não Realizada!\nInforme todos os CAMPOS!");
         }
     }
-    @FXML public void acaoBuscar(){
+    /*@FXML public void acaoBuscar(){
         if (alertaCamposB() == false){
             String[] dataString = txtData.getText().split("/");
             String dateComeco = dataString[2] + "-" + dataString[1] + "-" + dataString[0];
@@ -185,8 +185,5 @@ public class TelaCadastroAlocacaoController implements Initializable {
         }else{
             labelAtualizacao.setText("Exclusão não Realizada!\nInforme TODOS os campos");
         }   
-    }
-    @FXML public void acaoAtualizar(){
-        
-    }
+    }*/
 }

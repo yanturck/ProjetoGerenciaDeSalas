@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gsalasfxml.TelasCadastros.TelaCadastroUsuarioController">
    <children>
@@ -14,19 +15,19 @@
       <Button fx:id="btnExcluir" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoExcluir" text="Excluir" />
       <VBox layoutX="14.0" layoutY="14.0" prefHeight="49.0" prefWidth="296.0">
          <children>
-            <Label fx:id="labelNome" text="Nome:" />
+            <Label fx:id="labelNome" text="Nome*:" />
             <TextField fx:id="txtNome" />
          </children>
       </VBox>
       <VBox layoutX="14.0" layoutY="63.0" prefHeight="49.0" prefWidth="174.0">
          <children>
-            <Label fx:id="labelId" text="Matrícula:" />
+            <Label fx:id="labelId" text="Matrícula*:" />
             <TextField fx:id="txtId" prefHeight="25.0" prefWidth="168.0" />
          </children>
       </VBox>
       <VBox layoutX="14.0" layoutY="112.0" prefHeight="49.0" prefWidth="174.0">
          <children>
-            <Label fx:id="labelTipoU" text="Tipo Usuário:" />
+            <Label fx:id="labelTipoU" text="Tipo Usuário*:" />
             <TextField fx:id="txtTipoU" prefHeight="25.0" prefWidth="134.0" />
          </children>
       </VBox>
@@ -43,8 +44,11 @@
          </children>
       </VBox>
       <Label fx:id="labelAtualizacao" layoutX="14.0" layoutY="329.0" />
-      <Label fx:id="labelIdUserN" layoutX="14.0" layoutY="258.0" text="Matrícula Nova:" />
-      <TextField fx:id="txtIdUserN" layoutX="14.0" layoutY="275.0" prefHeight="25.0" prefWidth="174.0" />
       <Button fx:id="btnAtualizar" layoutX="131.0" layoutY="361.0" mnemonicParsing="false" onAction="#acaoAtualizar" text="Atualizar" />
+      <Label fx:id="labelCamposO" layoutX="14.0" layoutY="258.0" text="*Campos Obrigátorios.">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

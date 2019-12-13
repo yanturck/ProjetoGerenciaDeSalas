@@ -32,14 +32,13 @@ public class TelaCadastroUsuarioController implements Initializable {
     @FXML private TextField txtTipoU;
     @FXML private TextField txtCurso;
     @FXML private TextField txtTelefone;
-    @FXML private TextField txtIdUserN;
     @FXML private Label labelNome;
     @FXML private Label labelId;
     @FXML private Label labelTipoU;
     @FXML private Label labelCurso;
     @FXML private Label labelTelefone;
     @FXML private Label labelAtualizacao;
-    @FXML private Label labelIdUserN;
+    @FXML private Label labelCamposO;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -51,7 +50,6 @@ public class TelaCadastroUsuarioController implements Initializable {
         txtTipoU.setText("");
         txtCurso.setText("");
         txtTelefone.setText("");
-        txtIdUserN.setText("");
     }
      public boolean alertaCampos(){
          boolean aux = false;
@@ -155,8 +153,7 @@ public class TelaCadastroUsuarioController implements Initializable {
             confirmarExcluir.showAndWait().ifPresent(b -> {
                 if (b == btnOk){
                     int idUsuario = Integer.parseInt(txtId.getText());
-                    int idUser = Integer.parseInt(txtIdUserN.getText());
-                    Usuario user = new Usuario(idUser, txtNome.getText(), txtTipoU.getText(), txtCurso.getText(), txtTelefone.getText());
+                    Usuario user = new Usuario(idUsuario, txtNome.getText(), txtTipoU.getText(), txtCurso.getText(), txtTelefone.getText());
                     UsuariosDAO dao = new UsuariosDAO();
                     dao.atualizar(idUsuario, user);
                     labelAtualizacao.setText("Alteração Realizada!");
