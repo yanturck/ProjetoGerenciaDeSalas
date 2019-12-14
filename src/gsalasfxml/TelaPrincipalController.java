@@ -3,6 +3,7 @@ package gsalasfxml;
 import gsalasfxml.PojoDao.Alocacao;
 import gsalasfxml.PojoDao.AlocacaoDAO;
 import gsalasfxml.PojoDao.UsuariosDAO;
+import gsalasfxml.TelasCadastros.Alertas;
 import gsalasfxml.TelasCadastros.TelaCadastroAlocacaoFXML;
 import gsalasfxml.TelasCadastros.TelaCadastroSalaFXML;
 import gsalasfxml.TelasCadastros.TelaCadastroUsuarioFXML;
@@ -45,7 +46,31 @@ public class TelaPrincipalController implements Initializable {
     @FXML private Label labelPesquisar;
     
     @FXML public void acaoBuscar(){
-        
+        colunaInicio.setCellValueFactory(new PropertyValueFactory<>("data"));
+        colunaDescricao.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+        colunaTermino.setCellValueFactory(new PropertyValueFactory<>("tempo"));
+        colunaHorario.setCellValueFactory(new PropertyValueFactory<>("hora"));
+        colunaSala.setCellValueFactory(new PropertyValueFactory<>("idSala"));
+        colunaDuracao.setCellValueFactory(new PropertyValueFactory<>("duracao"));
+        AlocacaoDAO dao = new AlocacaoDAO();
+        UsuariosDAO daoU = new UsuariosDAO();
+        if (txtBusca.getText().length() != 0){
+            if (daoU.conExiste(Integer.parseInt(txtBusca.getText())) == true){
+                listAlocs = dao.buscarAloc(Integer.parseInt(txtBusca.getText()));
+                obsAlocs = FXCollections.observableArrayList(listAlocs);
+                tableviewAlocacoes.setItems(obsAlocs);
+                labelAtualizacao.setText("Busca Realizada!");
+            }else{
+                Alertas a = new Alertas();
+                a.idNExistente();
+                labelAtualizacao.setText("Busca não Realizada!");
+            }
+        }else {
+            listAlocs = dao.buscaGeral();
+            obsAlocs = FXCollections.observableArrayList(listAlocs);
+            tableviewAlocacoes.setItems(obsAlocs);
+            labelAtualizacao.setText("Busca Realizada!");
+        }
     }
     
     
@@ -100,6 +125,7 @@ public class TelaPrincipalController implements Initializable {
     @FXML private TableColumn<Alocacao, String> colunaHorario;
     @FXML private TableColumn<Alocacao, String> colunaSala;
     @FXML private TableColumn<Alocacao, String> colunaDuracao;
+    @FXML private Label labelAtualizacao;
     
     private List<Alocacao> listAlocs = new ArrayList();
     private ObservableList<Alocacao> obsAlocs;
@@ -112,10 +138,6 @@ public class TelaPrincipalController implements Initializable {
         colunaSala.setCellValueFactory(new PropertyValueFactory<>("idSala"));
         colunaDuracao.setCellValueFactory(new PropertyValueFactory<>("duracao"));
         
-        /*RadioButton rAsa = (RadioButton) grupoAsa.getSelectedToggle();
-        RadioButton rAndar = (RadioButton) grupoAndar.getSelectedToggle();
-        String asa = rAsa.getText();
-        String andar = rAndar.getText();*/
         AlocacaoDAO dao = new AlocacaoDAO();
         listAlocs = dao.buscaGeral();
         obsAlocs = FXCollections.observableArrayList(listAlocs);
@@ -145,6 +167,7 @@ public class TelaPrincipalController implements Initializable {
                 AlocacaoDAO dao = new AlocacaoDAO();
                 int id = dao.idAloc(aloc);
                 dao.excluir(id);
+                labelAtualizacao.setText("Item Excluido!");
             }
         });
     }

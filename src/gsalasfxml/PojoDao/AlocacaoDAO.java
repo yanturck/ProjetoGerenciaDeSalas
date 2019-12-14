@@ -69,7 +69,11 @@ public class AlocacaoDAO {
             stmt.setInt(1, idUser);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Alocacao aloc = new Alocacao(rs.getString("DESCRICAO"), rs.getString("DATAaloc"), rs.getString("HORAaloc"), rs.getString("TEMPOaloc"), rs.getString("DURACAO"), rs.getInt("idUser"), rs.getString("idSala"));
+                String[] date = rs.getString("DATAaloc").split("-");
+                String data = date[2] + "/" + date[1] + "/" + date[0];
+                String[] dura = rs.getString("DURACAO").split("-");
+                String duracao = dura[2] + "/" + dura[1] + "/" + dura[0];
+		Alocacao aloc = new Alocacao(rs.getString("DESCRICAO"), data, rs.getString("HORAaloc"), rs.getString("TEMPOaloc"), duracao, rs.getInt("idUser"), rs.getString("idSala"));
                 alocs.add(aloc);
             }
             stmt.close();
@@ -77,23 +81,6 @@ public class AlocacaoDAO {
             throw new RuntimeException(e);
         }
         return alocs;
-    }
-    public boolean existeBusca(int idUser){
-        String sql = "SELECT * FROM ALOCACAO WHERE idUser = ?;";
-        List<Alocacao> alocs = new ArrayList<Alocacao>();
-        try{
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, idUser);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Alocacao aloc = new Alocacao(rs.getString("DESCRICAO"), rs.getString("DATAaloc"), rs.getString("HORAaloc"), rs.getString("TEMPOaloc"), rs.getString("DURACAO"), rs.getInt("idUser"), rs.getString("idSala"));
-                alocs.add(aloc);
-            }
-            stmt.close();
-            return true;
-        }catch(SQLException e){
-            return false;
-        }
     }
     public void excluir(int idAloc){
         String sql = "DELETE FROM ALOCACAO WHERE idALOCACAO = ?;";
@@ -115,7 +102,11 @@ public class AlocacaoDAO {
             PreparedStatement stmt = connection.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-		Alocacao aloc = new Alocacao(rs.getString("DESCRICAO"), rs.getString("DATAaloc"), rs.getString("HORAaloc"), rs.getString("TEMPOaloc"), rs.getString("DURACAO"), rs.getInt("idUser"), rs.getString("idSala"));
+                String[] date = rs.getString("DATAaloc").split("-");
+                String data = date[2] + "/" + date[1] + "/" + date[0];
+                String[] dura = rs.getString("DURACAO").split("-");
+                String duracao = dura[2] + "/" + dura[1] + "/" + dura[0];
+		Alocacao aloc = new Alocacao(rs.getString("DESCRICAO"), data, rs.getString("HORAaloc"), rs.getString("TEMPOaloc"), duracao, rs.getInt("idUser"), rs.getString("idSala"));
 		alocs.add(aloc);
             }
             stmt.close();
