@@ -4,6 +4,8 @@ import gsalasfxml.PojoDao.Alocacao;
 import gsalasfxml.PojoDao.AlocacaoDAO;
 import gsalasfxml.PojoDao.UsuariosDAO;
 import gsalasfxml.TelasCadastros.Alertas;
+import gsalasfxml.TelasCadastros.ListarSalasFXML;
+import gsalasfxml.TelasCadastros.ListarUsersFXML;
 import gsalasfxml.TelasCadastros.TelaCadastroAlocacaoFXML;
 import gsalasfxml.TelasCadastros.TelaCadastroSalaFXML;
 import gsalasfxml.TelasCadastros.TelaCadastroUsuarioFXML;
@@ -16,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -25,15 +26,11 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javax.xml.ws.Action;
 
 /**
  * FXML Controller class
@@ -170,5 +167,23 @@ public class TelaPrincipalController implements Initializable {
                 labelAtualizacao.setText("Item Excluido!");
             }
         });
+    }
+    @FXML private Button btnSalas;
+    @FXML private Button btnUsers;
+    @FXML public void acaoBtnSalas(){
+        ListarSalasFXML s = new ListarSalasFXML();
+            try {
+                s.start(new Stage());
+            } catch (Exception ex) {
+                Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
+    @FXML public void acaoBtnUsers(){
+        ListarUsersFXML s = new ListarUsersFXML();
+            try {
+                s.start(new Stage());
+            } catch (Exception ex) {
+                Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 }

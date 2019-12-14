@@ -1,6 +1,5 @@
 package gsalasfxml.TelasCadastros;
 
-import gsalasfxml.PojoDao.SalasDAO;
 import gsalasfxml.PojoDao.Usuario;
 import gsalasfxml.PojoDao.UsuariosDAO;
 import java.net.URL;
@@ -13,7 +12,6 @@ import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class

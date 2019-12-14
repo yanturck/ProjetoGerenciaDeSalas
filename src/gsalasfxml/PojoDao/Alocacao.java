@@ -1,7 +1,5 @@
 package gsalasfxml.PojoDao;
 
-import java.sql.Date;
-import java.sql.Time;
 
 public class Alocacao {
     private String descricao;
@@ -66,7 +64,7 @@ public class Alocacao {
         return tempo;
     }
 
-    public void setTempo(String Tempo) {
+    public void setTempo(String tempo) {
         this.tempo = tempo;
     }
     

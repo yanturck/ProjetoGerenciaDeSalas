@@ -1,9 +1,6 @@
 package gsalasfxml.TelasCadastros;
 
-import gsalasfxml.PojoDao.UsuariosDAO;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 
 /**
  *

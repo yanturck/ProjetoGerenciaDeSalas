@@ -2,22 +2,15 @@ package gsalasfxml.TelasCadastros;
 
 import gsalasfxml.PojoDao.Sala;
 import gsalasfxml.PojoDao.SalasDAO;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 
 /**
  * FXML Controller class
@@ -28,7 +21,6 @@ public class TelaCadastroSalaController implements Initializable {
     
     @FXML private Button btnLimpar;
     @FXML private Button btnSalvar;
-    @FXML private Button btnExcluir;
     @FXML private TextField txtNumS;
     @FXML private Label labelNumS;
     @FXML private Label labelTipoS;
@@ -44,17 +36,6 @@ public class TelaCadastroSalaController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       /*btnLimpar.setOnMouseClicked((MouseEvent e)->{
-       acaoLimpar();
-    });
-       btnSalvar.setOnMouseClicked((MouseEvent s)->{
-       acaoSalvar();
-       acaoLimpar();
-    });
-       btnExcluir.setOnMouseClicked((MouseEvent s)->{
-       acaoExcluir();
-       acaoLimpar();
-    });*/
     }    
     @FXML public void acaoLimpar(){
         txtNumS.setText("");
@@ -110,32 +91,6 @@ public class TelaCadastroSalaController implements Initializable {
                 Alertas alert = new Alertas();
                 alert.idExistente();
             }
-        }
-    }
-    @FXML public void acaoExcluir(){
-        boolean aux1 = alertas();
-        if (aux1 == false){
-            RadioButton rAsa = (RadioButton) grupoAsa.getSelectedToggle();
-            
-            Alert confirmarExcluir = new Alert(Alert.AlertType.CONFIRMATION);
-            ButtonType btnOk = new ButtonType("OK");
-            ButtonType btnCan = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
-            
-            confirmarExcluir.setTitle("CONFIRMAÇÃO");
-            confirmarExcluir.setHeaderText("CONFIRMAR EXCLUSÃO");
-            confirmarExcluir.setContentText("Tem certeza que deseja excluir?\n" + txtNumS.getText() + "-" + rAsa.getText());
-            
-            confirmarExcluir.getButtonTypes().setAll(btnOk, btnCan);
-            confirmarExcluir.showAndWait().ifPresent(b -> {
-                if (b == btnOk){
-                    SalasDAO dao = new SalasDAO();
-                    dao.excluir(organizando());
-                    labelAtualizacao.setText("Exclusão Realizada!");
-                    acaoLimpar();
-                }else{
-                    labelAtualizacao.setText("Operação Cancelada");
-                }
-            });
         }
     }
 }

@@ -41,5 +41,7 @@
       <ComboBox fx:id="cbCadastrar" layoutX="15.0" layoutY="14.0" onAction="#pegar" prefHeight="25.0" prefWidth="128.0" promptText="Cadastrar/Editar" />
       <Button fx:id="btnExcluir" layoutX="718.0" layoutY="458.0" mnemonicParsing="false" onAction="#acaoExcluir" text="Excluir" />
       <Label fx:id="labelAtualizacao" layoutX="15.0" layoutY="450.0" />
+      <Button fx:id="btnSalas" layoutX="329.0" layoutY="14.0" mnemonicParsing="false" onAction="#acaoBtnSalas" text="Salas" />
+      <Button fx:id="btnUsers" layoutX="393.0" layoutY="14.0" mnemonicParsing="false" onAction="#acaoBtnUsers" text="Usuários" />
    </children>
 </Pane>

@@ -1,15 +1,10 @@
 package gsalasfxml.PojoDao;
 
-import gsalasfxml.conexao_banco.ConexaoSQLite;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,7 +91,6 @@ public class AlocacaoDAO {
     
     public List<Alocacao> buscaGeral(){
         String sql = "SELECT * FROM ALOCACAO";
-        //String idS = andar.substring(0,1) + i + aux.substring(0,1);
         List<Alocacao> alocs = new ArrayList<Alocacao>();
         try{
             PreparedStatement stmt = connection.prepareStatement(sql);
