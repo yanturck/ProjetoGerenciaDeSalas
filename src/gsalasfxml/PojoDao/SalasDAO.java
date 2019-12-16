@@ -1,12 +1,12 @@
 package gsalasfxml.PojoDao;
 
-import gsalasfxml.conexao_banco.ConexaoSQLite;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SalasDAO {
     private Connection connection;
@@ -47,4 +47,20 @@ public class SalasDAO {
             throw new RuntimeException(u);
         }
    }
+   public List<Sala> buscaGeral(){
+        String sql = "SELECT * FROM SALA";
+        List<Sala> salas = new ArrayList<Sala>();
+        try{
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+		Sala sala = new Sala(rs.getString("idSala"), rs.getInt("ANDAR"), rs.getString("TIPOsala"));
+		salas.add(sala);
+            }
+            stmt.close();
+        }catch(SQLException u){
+            throw new RuntimeException(u);
+        }
+        return salas;
+    }
 }

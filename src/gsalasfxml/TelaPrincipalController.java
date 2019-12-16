@@ -113,7 +113,6 @@ public class TelaPrincipalController implements Initializable {
                 Logger.getLogger(TelaPrincipalController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        cbCadastrar.getSelectionModel().clearSelection();
     }
     @FXML private TableView<Alocacao> tableviewAlocacoes;
     @FXML private TableColumn<Alocacao, String> colunaInicio;
